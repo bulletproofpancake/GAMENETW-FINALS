@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Realtime;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -11,9 +12,11 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody _rigidbody;
     private Vector3 _movement;
     private bool _onGround;
+    private Camera _camera;
 
     private void Awake()
     {
+        _camera = Camera.main;
         _rigidbody = GetComponent<Rigidbody>();
     }
 
@@ -25,8 +28,24 @@ public class PlayerMovement : MonoBehaviour
     private void GetInput()
     {
         _movement = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
+        LookAtMouse();
         if(Input.GetButton("Jump") && _onGround){
             Jump();
+        }
+    }
+
+    private void LookAtMouse()
+    {
+        //Unity Top Down Shooter #1 - Player Movement & Look
+        //https://youtu.be/lkDGk3TjsIE
+        var cameraRay = _camera.ScreenPointToRay(Input.mousePosition);
+        var groundPlane = new Plane(Vector3.up, Vector3.zero);
+
+        if (groundPlane.Raycast(cameraRay, out var rayLength))
+        {
+            var pointToLook = cameraRay.GetPoint(rayLength);
+            transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
+            Debug.DrawRay(transform.position, pointToLook, Color.white);
         }
         
     }
