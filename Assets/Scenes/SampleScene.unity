@@ -586,7 +586,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  jumpForce: 5
+  jumpForce: 7
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
 --- !u!1 &538820965
@@ -1612,8 +1612,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grounds: []
-  raiseSpeed: 5
+  raiseSpeed: 1
   raiseDuration: 2
+  repeatMin: 1
+  repeatMax: 3
 --- !u!4 &2007068372 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6185205384895373995, guid: 83d85cdd8777537458c71ae9d07643b7,
