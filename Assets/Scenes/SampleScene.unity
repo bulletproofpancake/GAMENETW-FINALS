@@ -1611,7 +1611,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72e0b6c7b21212d4195fbb7d4a882099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ground: []
+  grounds: []
+  raiseSpeed: 5
+  raiseDuration: 2
 --- !u!4 &2007068372 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6185205384895373995, guid: 83d85cdd8777537458c71ae9d07643b7,
