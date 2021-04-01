@@ -1514,7 +1514,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 512
-  jumpHeight: 1.5
+  jumpHeight: 2.5
 --- !u!114 &2645072446967787384
 MonoBehaviour:
   m_ObjectHideFlags: 0
