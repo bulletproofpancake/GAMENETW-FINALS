@@ -45,6 +45,7 @@ public class PlatformController : MonoBehaviour
             rb.velocity = Vector3.zero;
             ground.isActive = false;
             ground.isRaised = true;
+            rb.position = new Vector3(rb.position.x, Mathf.Clamp(rb.position.y, 0, 1), rb.position.z);
         }
         else
         {
@@ -59,6 +60,7 @@ public class PlatformController : MonoBehaviour
             rb.velocity = Vector3.zero;
             ground.isActive = false;
             ground.isRaised = false;
+            rb.position = new Vector3(rb.position.x, Mathf.Clamp(rb.position.y, -1, 0), rb.position.z);
         }
     }
     
