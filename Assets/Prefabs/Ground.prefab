@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6185205384895373993}
   - component: {fileID: 6185205384895374006}
   - component: {fileID: 6185205384895373997}
-  - component: {fileID: 6185205384895373994}
+  - component: {fileID: 7128143876409028367}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Ground
@@ -111,7 +111,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6185205384895373994
+--- !u!114 &7128143876409028367
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,9 +120,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6185205384895374007}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72e0b6c7b21212d4195fbb7d4a882099, type: 3}
+  m_Script: {fileID: 11500000, guid: d632a6be6d1dfdc4b885631aa03283d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  moveSpeed: 1
-  riseTime: 5
+  hasPlayer: 0
+  moveSpeed: 5
+  riseTime: 2
