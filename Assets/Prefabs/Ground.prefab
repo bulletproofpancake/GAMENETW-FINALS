@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6185205384895374006}
   - component: {fileID: 6185205384895373997}
   - component: {fileID: 7128143876409028367}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -125,5 +125,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isActive: 0
   hasPlayer: 0
-  moveSpeed: 5
-  riseTime: 2
+  isRaised: 0

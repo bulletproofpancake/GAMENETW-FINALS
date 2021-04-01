@@ -1059,7 +1059,7 @@ GameObject:
   - component: {fileID: 2645072446785179852}
   m_Layer: 8
   m_Name: Collision Check
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1433,7 +1433,7 @@ GameObject:
   - component: {fileID: 2645072446967787384}
   m_Layer: 8
   m_Name: Player (Hunter) Variant
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

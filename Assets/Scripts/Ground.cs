@@ -102,13 +102,13 @@ public class Ground : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.GetComponent<PlayerMovement>())
+        if (other.gameObject.CompareTag("Player"))
             hasPlayer = true;
     }
 
     private void OnCollisionExit(Collision other)
     {
-        if (other.gameObject.GetComponent<PlayerMovement>())
+        if (other.gameObject.CompareTag("Player"))
             hasPlayer = false;
     }
 }
