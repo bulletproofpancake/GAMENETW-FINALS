@@ -30,9 +30,9 @@ public class Lobby : MonoBehaviourPunCallbacks
      #region MonobehaviourPunCallbacks
      public override void OnConnectedToMaster()
      {
-          Log("Connected to Master!");
-          PhotonNetwork.JoinRandomRoom();
-
+        Log("<color=#1ED760>Connected to Master.</color>");
+        Debug.Log("Connected to Master!");
+        PhotonNetwork.JoinRandomRoom();
      }
 
      public override void OnDisconnected(DisconnectCause cause)
@@ -45,8 +45,7 @@ public class Lobby : MonoBehaviourPunCallbacks
 
      public override void OnJoinRandomFailed(short returnCode, string message)
      {
-          Log("Failed to join a room: " + message);
-
+          Log("<color=#DE3232>Failed to join a room:</color> " + message);
           // * if failed to joined a room, create a new room
           Log("Creating a room!");
           PhotonNetwork.CreateRoom(PhotonNetwork.NickName + "'s Room", new RoomOptions { MaxPlayers = maxPlayerPerRoom });
@@ -54,9 +53,8 @@ public class Lobby : MonoBehaviourPunCallbacks
 
      public override void OnJoinedRoom()
      {
-          Debug.Log("Successfully joined " + PhotonNetwork.NickName);
-          Log("Successfully joined " + PhotonNetwork.NickName);
-          PhotonNetwork.LoadLevel(2);
+        Log("<color=#1ED760> Successfully joined " + PhotonNetwork.CurrentRoom.Name + "</color>");
+        PhotonNetwork.LoadLevel(2);
      }
 
      #endregion
@@ -69,20 +67,23 @@ public class Lobby : MonoBehaviourPunCallbacks
           //* checking if connected
           if (PhotonNetwork.IsConnected)
           {
-               Log("Finding a Room");
-               //attempts to join a random lobby if there is a lobby created
-               PhotonNetwork.JoinRandomRoom();
+            Log("Finding a Room");
+            Debug.Log("We are already connected to photon cloud network..Finding a random room.");
+            //attempts to join a random lobby if there is a lobby created
+            PhotonNetwork.JoinRandomRoom();
           }
           else
           {
-               Log("Connecting to the photon servers");
-               // Connect to the random server.
-               PhotonNetwork.ConnectUsingSettings();
-               PhotonNetwork.GameVersion = gameVersion;
+            Log("Connecting to the photon servers");
+            Debug.Log("Connecting to photon cloud network...");
+            // Connect to the random server.
+            PhotonNetwork.ConnectUsingSettings();
+            PhotonNetwork.GameVersion = gameVersion;
           }
      }
 
-     private void Log(string message)
+
+    private void Log(string message)
      {
           if (logger == null)
                return;

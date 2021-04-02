@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class PlayerMove : MonoBehaviour
 {
     #region - Component Variables -
     Animator anim;
     PlayerActions pa;
+    PhotonView myPV;
     #endregion
 
     #region - Gravity Variables -
@@ -35,6 +37,7 @@ public class PlayerMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        myPV = GetComponent<PhotonView>();
         anim = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         pa = GetComponent<PlayerActions>();
@@ -43,15 +46,16 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CharacterGravity();
-
-        if (pa.playerStaggered == false)
-        {
-            CharacterMovement();
-            CharacterJump();
-        }
+        if(!myPV.IsMine)
+            return;
+            CharacterGravity();
+            if (pa.playerStaggered == false)
+            {
+                CharacterMovement();
+                CharacterJump();
+            }
     }
-
+    [PunRPC]
     #region - Movement -
     void CharacterMovement()
     {
@@ -113,5 +117,4 @@ public class PlayerMove : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
     #endregion
-
 }

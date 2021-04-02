@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 
 public class PlayerActions : MonoBehaviour
 {
@@ -9,6 +11,7 @@ public class PlayerActions : MonoBehaviour
     PlayerMove pm;
     TestCollision tc;
     TransferStatus ts;
+    PhotonView myPV;
 
     public GameObject kick;
     public GameObject punch;
@@ -43,6 +46,7 @@ public class PlayerActions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        myPV = GetComponent<PhotonView>();
         anim = GetComponent<Animator>();
         pm = GetComponent<PlayerMove>();
         tc = capsuleCollider.GetComponent<TestCollision>();
@@ -55,11 +59,14 @@ public class PlayerActions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Kick();
-        Punch();
-        Stagger();
-        PlayerStatus();
+        if (!myPV.IsMine)
+            return;
+            Kick();
+            Punch();
+            Stagger();
+            PlayerStatus();
     }
+[PunRPC]
 
     #region - Kick -
     void Kick()
