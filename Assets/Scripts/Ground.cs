@@ -77,7 +77,7 @@ public class Ground : MonoBehaviour
     private Material _material;
     private Color _colorBase;
 
-    public bool isActive, hasPlayer, isRaised;
+    public bool spawnPoint, isActive, hasPlayer, isRaised;
     
     private void Awake()
     {
@@ -87,8 +87,8 @@ public class Ground : MonoBehaviour
 
     private void Start()
     {
+        if (spawnPoint) return;
         PlatformController.Instance.grounds.Add(this);
-        PlatformController.Instance.floor.Add(this);
     }
     
     private void Update()

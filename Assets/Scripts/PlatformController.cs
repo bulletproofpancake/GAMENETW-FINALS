@@ -7,7 +7,8 @@ using Random = UnityEngine.Random;
 public class PlatformController : MonoBehaviour
 {
     public static PlatformController Instance;
-    public List<Ground> grounds,raised,floor;
+    public List<Ground> grounds;
+    public Ground spawnPoint;
 
     [SerializeField] private float raiseSpeed, raiseDuration;
     [SerializeField] private float repeatMin, repeatMax;
@@ -45,8 +46,6 @@ public class PlatformController : MonoBehaviour
             rb.velocity = Vector3.zero;
             ground.isActive = false;
             ground.isRaised = true;
-            raised.Add(ground);
-            floor.Remove(ground);
             rb.position = new Vector3(rb.position.x, Mathf.Clamp(rb.position.y, 0, 1), rb.position.z);
         }
         else
@@ -62,17 +61,14 @@ public class PlatformController : MonoBehaviour
             rb.velocity = Vector3.zero;
             ground.isActive = false;
             ground.isRaised = false;
-            raised.Remove(ground);
-            floor.Add(ground);
             rb.position = new Vector3(rb.position.x, Mathf.Clamp(rb.position.y, -1, 0), rb.position.z);
         }
     }
 
     public IEnumerator RemoveHunter(GameObject player)
     {
-        var ground = floor[Random.Range(0, floor.Count)];
         yield return new WaitForEndOfFrame();
-        player.transform.position = ground.transform.position;
+        player.transform.position = spawnPoint.transform.position;
     }
 
 }
