@@ -88,6 +88,7 @@ public class Ground : MonoBehaviour
     private void Start()
     {
         PlatformController.Instance.grounds.Add(this);
+        PlatformController.Instance.floor.Add(this);
     }
     
     private void Update()
@@ -115,6 +116,7 @@ public class Ground : MonoBehaviour
             if (pStatus.isHunter && isRaised)
             {
                 print("Hunter on platform");
+                PlatformController.Instance.RemoveHunter(player);
             }
         }
     }
