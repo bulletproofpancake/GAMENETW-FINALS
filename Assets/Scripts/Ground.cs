@@ -77,7 +77,7 @@ public class Ground : MonoBehaviour
     private Material _material;
     private Color _colorBase;
 
-    public bool isActive, hasPlayer, isRaised;
+    public bool spawnPoint, isActive, hasPlayer, isRaised;
     
     private void Awake()
     {
@@ -87,7 +87,8 @@ public class Ground : MonoBehaviour
 
     private void Start()
     {
-        PlatformController.Controller.grounds.Add(this);
+        if (spawnPoint) return;
+        PlatformController.Instance.grounds.Add(this);
     }
     
     private void Update()
@@ -103,7 +104,23 @@ public class Ground : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Player"))
+        {
             hasPlayer = true;
+        }
+    }
+
+    private void OnCollisionStay(Collision other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            var player = other.transform.parent.gameObject;
+            var pStatus = player.GetComponent<PlayerStatus>();
+            if (pStatus.isHunter && isRaised)
+            {
+                print("Hunter on platform");
+                StartCoroutine(PlatformController.Instance.RemoveHunter(player));
+            }
+        }
     }
 
     private void OnCollisionExit(Collision other)

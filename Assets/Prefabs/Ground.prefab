@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d632a6be6d1dfdc4b885631aa03283d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPoint: 0
   isActive: 0
   hasPlayer: 0
   isRaised: 0

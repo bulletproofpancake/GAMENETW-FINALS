@@ -6,15 +6,16 @@ using Random = UnityEngine.Random;
 
 public class PlatformController : MonoBehaviour
 {
-    public static PlatformController Controller;
+    public static PlatformController Instance;
     public List<Ground> grounds;
+    public Ground spawnPoint;
 
     [SerializeField] private float raiseSpeed, raiseDuration;
     [SerializeField] private float repeatMin, repeatMax;
     
     private void Awake()
     {
-        Controller = this;
+        Instance = this;
     }
 
     private void Start()
@@ -63,5 +64,11 @@ public class PlatformController : MonoBehaviour
             rb.position = new Vector3(rb.position.x, Mathf.Clamp(rb.position.y, -1, 0), rb.position.z);
         }
     }
-    
+
+    public IEnumerator RemoveHunter(GameObject player)
+    {
+        yield return new WaitForEndOfFrame();
+        player.transform.position = spawnPoint.transform.position;
+    }
+
 }
