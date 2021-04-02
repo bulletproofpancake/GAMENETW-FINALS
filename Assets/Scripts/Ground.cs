@@ -104,7 +104,9 @@ public class Ground : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Player"))
+        {
             hasPlayer = true;
+        }
     }
 
     private void OnCollisionStay(Collision other)
@@ -116,7 +118,7 @@ public class Ground : MonoBehaviour
             if (pStatus.isHunter && isRaised)
             {
                 print("Hunter on platform");
-                PlatformController.Instance.RemoveHunter(player);
+                StartCoroutine(PlatformController.Instance.RemoveHunter(player));
             }
         }
     }

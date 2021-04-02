@@ -68,9 +68,10 @@ public class PlatformController : MonoBehaviour
         }
     }
 
-    public void RemoveHunter(GameObject player)
+    public IEnumerator RemoveHunter(GameObject player)
     {
         var ground = floor[Random.Range(0, floor.Count)];
+        yield return new WaitForEndOfFrame();
         player.transform.position = ground.transform.position;
     }
 
