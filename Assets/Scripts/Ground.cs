@@ -87,7 +87,7 @@ public class Ground : MonoBehaviour
 
     private void Start()
     {
-        PlatformController.Controller.grounds.Add(this);
+        PlatformController.Instance.grounds.Add(this);
     }
     
     private void Update()
@@ -104,6 +104,19 @@ public class Ground : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
             hasPlayer = true;
+    }
+
+    private void OnCollisionStay(Collision other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            var player = other.transform.parent.gameObject;
+            var pStatus = player.GetComponent<PlayerStatus>();
+            if (pStatus.isHunter && isRaised)
+            {
+                print("Hunter on platform");
+            }
+        }
     }
 
     private void OnCollisionExit(Collision other)

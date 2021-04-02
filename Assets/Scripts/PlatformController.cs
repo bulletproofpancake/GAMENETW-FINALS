@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class PlatformController : MonoBehaviour
 {
-    public static PlatformController Controller;
+    public static PlatformController Instance;
     public List<Ground> grounds;
 
     [SerializeField] private float raiseSpeed, raiseDuration;
@@ -14,7 +14,7 @@ public class PlatformController : MonoBehaviour
     
     private void Awake()
     {
-        Controller = this;
+        Instance = this;
     }
 
     private void Start()
@@ -62,6 +62,11 @@ public class PlatformController : MonoBehaviour
             ground.isRaised = false;
             rb.position = new Vector3(rb.position.x, Mathf.Clamp(rb.position.y, -1, 0), rb.position.z);
         }
+    }
+
+    public void RemoveHunter()
+    {
+        
     }
     
 }
