@@ -2,11 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 using Random = UnityEngine.Random;
 
 public class PlatformController : MonoBehaviour
 {
+    
     public static PlatformController Instance;
+    PhotonView myPV;
+    Rigidbody rb;
     public List<Ground> grounds;
     public Ground spawnPoint;
 
@@ -15,7 +19,9 @@ public class PlatformController : MonoBehaviour
     
     private void Awake()
     {
-        Instance = this;
+         rb = GetComponent<Rigidbody>();
+         myPV = GetComponent<PhotonView>();
+         Instance = this;
     }
 
     private void Start()

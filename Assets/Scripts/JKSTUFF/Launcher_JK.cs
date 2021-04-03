@@ -91,6 +91,11 @@ public class Launcher_JK : MonoBehaviourPunCallbacks
 
     public void StartGame()
     {
+        foreach(Player player in PhotonNetwork.PlayerList)
+        {
+
+            Debug.Log(player.NickName);
+        }
         PhotonNetwork.LoadLevel(1);
     }
 
