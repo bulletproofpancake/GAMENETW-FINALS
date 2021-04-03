@@ -6,6 +6,7 @@ public class TestCollision : MonoBehaviour
 {
     public bool isStaggered;
     public bool becomeHunter = false;
+    public PlayerStatus ps;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,7 @@ public class TestCollision : MonoBehaviour
             isStaggered = true;
             Debug.Log("Collision Detected");
             becomeHunter = true;
+            ps.isHunter = true;
         }
     }
 }

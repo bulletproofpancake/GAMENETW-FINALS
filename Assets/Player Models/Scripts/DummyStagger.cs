@@ -5,7 +5,7 @@ using UnityEngine;
 public class DummyStagger : MonoBehaviour
 {
     public bool isStaggered;
-    [SerializeField] private bool hunterStatus = false;
+    public PlayerStatus ps;
 
 
     // Start is called before the first frame update
@@ -22,7 +22,7 @@ public class DummyStagger : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
-         if (col.gameObject.name == "Kick")
+        if (col.gameObject.name == "Kick")
         {
             isStaggered = true;
             Debug.Log("Collision Detected");
@@ -32,7 +32,7 @@ public class DummyStagger : MonoBehaviour
         {
             isStaggered = true;
             Debug.Log("Collision Detected");
-            hunterStatus = true;
+            ps.isHunter = true;
         }
     }
 }

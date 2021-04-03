@@ -154,6 +154,7 @@ public class PlayerActions : MonoBehaviour
             this.hunter = true;
             this.runner = false;
             ts.becomeRunner = false;
+            tc.ps.isHunter = true;
             pm.speed = 9;
         }
         else if (ts.becomeRunner == true)
@@ -161,6 +162,7 @@ public class PlayerActions : MonoBehaviour
             this.runner = true;
             this.hunter = false;
             tc.becomeHunter = false;
+            tc.ps.isHunter = false;
             pm.speed = 6;
         }
 
@@ -175,5 +177,17 @@ public class PlayerActions : MonoBehaviour
             this.hunter = true;
             this.runner = false;
         }
+
+        if (tc.ps.isHunter)
+        {
+            this.hunter = true;
+            this.runner = false;
+        }
+        else
+        {
+            this.hunter = false;
+            this.runner = true;
+        }
+        
     }
 }

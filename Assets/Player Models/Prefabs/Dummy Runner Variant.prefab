@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isStaggered: 0
-  hunterStatus: 0
+  ps: {fileID: 1056757969301800310}
 --- !u!136 &-6939035905150832035
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -192,6 +192,20 @@ MonoBehaviour:
   capsuleCollide: {fileID: 1077358449}
   nextStaggeredTime: 0
   staggerCooldown: 3
+--- !u!114 &1056757969301800310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2263767857759903671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74fb42f4c35e2e84a939c5f9b0f19989, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isHunter: 0
+  skinRenderer: {fileID: 5115905611609429789}
 --- !u!1001 &1417487154333147878
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -275,6 +289,12 @@ GameObject:
 --- !u!4 &1450533412133242125 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 69ec24a72639ca248a48c768459e4bc9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1417487154333147878}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &5115905611609429789 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6148737315974723067, guid: 69ec24a72639ca248a48c768459e4bc9,
     type: 3}
   m_PrefabInstance: {fileID: 1417487154333147878}
   m_PrefabAsset: {fileID: 0}

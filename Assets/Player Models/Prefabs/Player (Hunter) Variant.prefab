@@ -1169,6 +1169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isStaggered: 0
   becomeHunter: 0
+  ps: {fileID: 4958235536105864690}
 --- !u!1 &2689425559639023208
 GameObject:
   m_ObjectHideFlags: 0
@@ -1556,7 +1557,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHunter: 0
-  skinRenderer: {fileID: 0}
+  skinRenderer: {fileID: 7331606893668828968}
 --- !u!1 &4505221799277697958
 GameObject:
   m_ObjectHideFlags: 0
@@ -2816,6 +2817,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isStaggered: 0
   becomeHunter: 0
+  ps: {fileID: 0}
 --- !u!1 &8912192777843646533
 GameObject:
   m_ObjectHideFlags: 0
