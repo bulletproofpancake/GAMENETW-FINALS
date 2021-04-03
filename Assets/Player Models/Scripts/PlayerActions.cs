@@ -14,8 +14,6 @@ public class PlayerActions : MonoBehaviour
     PhotonView myPV;
     Rigidbody rb;
 
-    [SerializeField] GameObject cameraHolder;
-
     public GameObject kick;
     public GameObject punch;
     public GameObject capsuleCollider;

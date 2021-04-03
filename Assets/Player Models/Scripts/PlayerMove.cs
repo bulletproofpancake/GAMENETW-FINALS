@@ -19,6 +19,8 @@ public class PlayerMove : MonoBehaviour
     #endregion
 
     #region - Movement Variables -
+    [SerializeField] float mouseSensitivity;
+    float verticalLookRotation;
     Vector3 direction;
     Vector3 moveDir;
     public Transform cam;
@@ -68,14 +70,22 @@ public class PlayerMove : MonoBehaviour
     {
         if (!myPV.IsMine)
             return;
-
         rb.MovePosition(rb.position + transform.TransformDirection(moveDir) * Time.fixedDeltaTime);
     }
+
     #region - Movement -
     void CharacterMovement()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
+
+        transform.Rotate(Vector3.up * Input.GetAxisRaw("Mouse X") * mouseSensitivity);
+
+        verticalLookRotation += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+        verticalLookRotation = Mathf.Clamp(verticalLookRotation, -90f, 90f);
+
+        cam.transform.localEulerAngles = Vector3.left * verticalLookRotation;
+
         direction = new Vector3(horizontal, 0f, vertical).normalized;
 
         // Movement and rotation
