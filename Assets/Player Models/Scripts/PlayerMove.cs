@@ -9,6 +9,8 @@ public class PlayerMove : MonoBehaviour
     Animator anim;
     PlayerActions pa;
     PhotonView myPV;
+    Rigidbody rb;
+    PlayerManager playerManager;
     #endregion
 
     #region - Gravity Variables -
@@ -35,9 +37,15 @@ public class PlayerMove : MonoBehaviour
     private CharacterController controller;
 
     // Start is called before the first frame update
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        myPV = GetComponent<PhotonView>();
+
+        //playerManager = PhotonView.Find((int)myPV.InstantiationData[0]).GetComponent<PlayerManager>();
+    }
     void Start()
     {
-        myPV = GetComponent<PhotonView>();
         anim = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         pa = GetComponent<PlayerActions>();
@@ -55,7 +63,14 @@ public class PlayerMove : MonoBehaviour
                 CharacterJump();
             }
     }
-    [PunRPC]
+
+    void FixedUpdate()
+    {
+        if (!myPV.IsMine)
+            return;
+
+        rb.MovePosition(rb.position + transform.TransformDirection(moveDir) * Time.fixedDeltaTime);
+    }
     #region - Movement -
     void CharacterMovement()
     {

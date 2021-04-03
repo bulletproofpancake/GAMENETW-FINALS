@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
+using Photon.Realtime;
 using TMPro;
 
 [RequireComponent(typeof(TMP_InputField))]
 public class PlayerNameInputField : MonoBehaviour
 {
-     TMP_InputField inputField;
-
+    TMP_InputField inputField;
+    TMP_Text text;
 
      const string playerNamePrefKey = "Playername";
 
@@ -31,7 +32,8 @@ public class PlayerNameInputField : MonoBehaviour
           }
      }
 
-     public void SetPlayerName(string value)
+
+    public void SetPlayerName(string value)
      {
           if (string.IsNullOrEmpty(value))
           {

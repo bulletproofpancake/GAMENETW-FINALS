@@ -12,6 +12,9 @@ public class PlayerActions : MonoBehaviour
     TestCollision tc;
     TransferStatus ts;
     PhotonView myPV;
+    Rigidbody rb;
+
+    [SerializeField] GameObject cameraHolder;
 
     public GameObject kick;
     public GameObject punch;
@@ -46,7 +49,6 @@ public class PlayerActions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        myPV = GetComponent<PhotonView>();
         anim = GetComponent<Animator>();
         pm = GetComponent<PlayerMove>();
         tc = capsuleCollider.GetComponent<TestCollision>();
@@ -54,9 +56,20 @@ public class PlayerActions : MonoBehaviour
         currentKickTime = startingKickTime;
         currentPunchTime = startingPunchTime;
         currentStaggeredTime = startingStaggeredTime;
+        if (!myPV.IsMine)
+        {
+            Destroy(GetComponentInChildren<Camera>().gameObject);
+            Destroy(rb);
+        }
     }
 
     // Update is called once per frame
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        myPV = GetComponent<PhotonView>();
+
+    }
     void Update()
     {
         if (!myPV.IsMine)
