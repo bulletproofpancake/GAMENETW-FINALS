@@ -1,33 +1,48 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPunCallbacks
 {
     public static GameManager Instance;
-    public List<PlayerStatus> players;
+    PhotonView myPV;
+    [SerializeField] Player[] players = PhotonNetwork.PlayerList;
 
     private void Awake()
     {
         Instance = this;
-        players = new List<PlayerStatus>();
+        myPV = GetComponent<PhotonView>();
     }
 
     private void Start()
     {
-        SetRoles();
+        if (myPV.IsMine)
+        {
+            myPV.RPC("SetRoles", RpcTarget.AllViaServer);
+        }
     }
 
+    [PunRPC]
     private void SetRoles()
     {
-        players[Random.Range(0, players.Count)].isHunter = true;
-        foreach (var player in players)
-        {
-            if (!player.isHunter)
-            {
-                player.GetComponent<PlayerActions>().enabled = false;
-                player.GetComponent<PlayerMove>().enabled = false;
-            }
-        }
+        Debug.Log("Set Roles activated");
+        //This should be called in All Clients IN THE ROOM
+        //This should only be called AFTER starting the game
+
+        //players[Random.Range(0, PhotonNetwork.CountOfPlayersInRooms)].isHunter = true;
+        //foreach (var player in players)
+        //{
+        //    if (!player.isHunter)
+        //    {
+        //        player.GetComponent<PlayerActions>().enabled = false;
+        //        player.GetComponent<PlayerMove>().enabled = false;
+        //    }
+        //}
+    }
+
+    public void _setRoles()
+    {
+        SetRoles();
     }
 }

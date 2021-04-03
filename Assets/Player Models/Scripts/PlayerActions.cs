@@ -66,7 +66,6 @@ public class PlayerActions : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         myPV = GetComponent<PhotonView>();
-
     }
     void Update()
     {
@@ -77,6 +76,7 @@ public class PlayerActions : MonoBehaviour
             Stagger();
             PlayerStatus();
     }
+
 [PunRPC]
 
     #region - Kick -
@@ -167,6 +167,10 @@ public class PlayerActions : MonoBehaviour
 
     void PlayerStatus()
     {
+        if(gameObject.GetComponent<PlayerStatus>().isHunter == true)
+        {
+            this.hunter = true;
+        }
         if (tc.becomeHunter == true)
         {
             this.hunter = true;
