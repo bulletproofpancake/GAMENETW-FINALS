@@ -21,8 +21,6 @@ public class PlayerMove : MonoBehaviour
     #region - Movement Variables -
     Vector3 direction;
     Vector3 moveDir;
-    [SerializeField]float mouseSensitivty;
-    float verticalLookRotation;
     public Transform cam;
     public float speed;
     [SerializeField] private float turnSmoothTime = 0.1f;
