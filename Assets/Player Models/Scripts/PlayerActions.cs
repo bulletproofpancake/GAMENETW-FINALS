@@ -86,28 +86,28 @@ public class PlayerActions : MonoBehaviour
     [PunRPC]
     private void OnCollisionEnter(Collision collision)
     {
-        if(kick.activeSelf == true)
-        {
-            Debug.Log("Kick");
-        }
-        if (punch.activeSelf == true && collision.gameObject.GetComponent<CharacterController>())
-        {
-            if (!myPV.IsMine)//sets data to the other player
-            {
-               collision.gameObject.GetComponent<PlayerStatus>().isHunter = true;
-               collision.gameObject.GetComponent<PlayerActions>().hunter = true;
-               Debug.Log(collision.gameObject + PhotonNetwork.NickName + "OTHER PLAYER");
-            }
-            if (myPV.IsMine)//sets data to your client
-            {
-                Debug.Log(collision.gameObject + PhotonNetwork.NickName);
-                Debug.Log(PhotonNetwork.NickName + " Is Punching");
-                this.gameObject.GetComponent<PlayerActions>().runner = true;
-                this.gameObject.GetComponent<PlayerActions>().hunter = false;
-                this.gameObject.GetComponent<PlayerStatus>().isHunter = false;
-                
-            }
-        }
+        //if (kick.activeSelf == true)
+        //{
+        //    Debug.Log("Kick");
+        //}
+        //if (punch.activeSelf == true && collision.gameObject.GetComponent<CharacterController>())
+        //{
+        //    if (!myPV.IsMine)//sets data to the other player
+        //    {
+        //        collision.gameObject.GetComponent<PlayerStatus>().isHunter = true;
+        //        collision.gameObject.GetComponent<PlayerActions>().hunter = true;
+        //        Debug.Log(collision.gameObject + PhotonNetwork.NickName + "OTHER PLAYER");
+        //    }
+        //    if (myPV.IsMine)//sets data to your client
+        //    {
+        //        Debug.Log(collision.gameObject + PhotonNetwork.NickName);
+        //        Debug.Log(PhotonNetwork.NickName + " Is Punching");
+        //        this.gameObject.GetComponent<PlayerActions>().runner = true;
+        //        this.gameObject.GetComponent<PlayerActions>().hunter = false;
+        //        this.gameObject.GetComponent<PlayerStatus>().isHunter = false;
+
+        //    }
+        //}
     }
 
     #region - Kick -
@@ -200,13 +200,13 @@ public class PlayerActions : MonoBehaviour
     [PunRPC]
     void PlayerStatus()
     {
-        if (playerStatus.isHunter == true)
+        if (gameObject.GetComponent<PlayerStatus>().isHunter == true)
         {
             this.hunter = true;
             this.runner = false;
             pm.speed = 9;
         }
-        else if (playerStatus.isHunter == false)
+        if (gameObject.GetComponent<PlayerStatus>().isHunter == true)
         {
             this.hunter = false;
             this.runner = true;

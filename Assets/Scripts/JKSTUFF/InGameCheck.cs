@@ -34,7 +34,7 @@ public class InGameCheck : MonoBehaviourPunCallbacks
         //Randomize
         foreach(Player player in PhotonNetwork.PlayerList)
         {
-                this.gameObject.GetComponent<PlayerStatus>().isHunter = false;
+                this.gameObject.GetComponent<PlayerStatus>().isHunter = true;
         }
     }
 
