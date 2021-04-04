@@ -13,8 +13,8 @@ public class Launcher_JK : MonoBehaviourPunCallbacks
     [SerializeField] TMP_Text errorText;
     [SerializeField] TMP_Text roomNameText;
     [SerializeField] Transform roomListContent;
-    [SerializeField] GameObject roomListItemPrefab;
     [SerializeField] Transform playerListContent;
+    [SerializeField] GameObject roomListItemPrefab;
     [SerializeField] GameObject PlayerListItemPrefab;
     [SerializeField] GameObject startGameButton;
 
@@ -22,18 +22,17 @@ public class Launcher_JK : MonoBehaviourPunCallbacks
     {
         Instance = this;
     }
-
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
-
     private void Start()
     {
         Debug.Log("Connecting To Master");
         PhotonNetwork.ConnectUsingSettings();
     }
 
+    #region - Launcher Methods - 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
     public override void OnConnectedToMaster()
     {
         Debug.Log("Connected To Master");
@@ -131,4 +130,5 @@ public class Launcher_JK : MonoBehaviourPunCallbacks
     {
         Instantiate(PlayerListItemPrefab, playerListContent).GetComponent<playerListItem>().SetUp(newPlayer);
     }
+    #endregion
 }

@@ -15,13 +15,13 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
-        if (myPV.IsMine)
+        if (myPV.IsMine)//Only the client generates this
         {
             CreateController();
         }
     }
 
-    void CreateController()
+    void CreateController()//This is what gives each players their characters with their own respective controllers
     {
         PhotonNetwork.Instantiate(Path.Combine("Photon Prefabs", "PlayerController"), Vector3.zero, Quaternion.identity, 0, new object[] { myPV.ViewID });
     }

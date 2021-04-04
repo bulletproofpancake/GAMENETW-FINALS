@@ -83,9 +83,18 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
+    //PUN RPC IS USED FOR SENDING DATA FROM CLIENT TO SERVER
     [PunRPC]
     private void OnCollisionEnter(Collision collision)
     {
+        //TO DO:
+        //Check Collision of Attack States
+        //Player should not collide with itself
+        //Hunter should be able to transfer status on collide
+        //The receiver of the Hunter Status will be staggered for a few seconds
+        //Add like particle fx on change status
+        //Hunter Status of the transferer will be changed to Runner
+        #region - Attack Logic OLD -
         //if (kick.activeSelf == true)
         //{
         //    Debug.Log("Kick");
@@ -108,6 +117,7 @@ public class PlayerActions : MonoBehaviour
 
         //    }
         //}
+        #endregion // OLD
     }
 
     #region - Kick -

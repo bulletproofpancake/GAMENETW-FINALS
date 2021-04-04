@@ -38,13 +38,10 @@ public class PlayerMove : MonoBehaviour
 
     private CharacterController controller;
 
-    // Start is called before the first frame update
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         myPV = GetComponent<PhotonView>();
-
-        //playerManager = PhotonView.Find((int)myPV.InstantiationData[0]).GetComponent<PlayerManager>();
     }
     void Start()
     {
@@ -66,7 +63,7 @@ public class PlayerMove : MonoBehaviour
             }
     }
 
-    void FixedUpdate()
+    void FixedUpdate()//This fixes the jittery mess
     {
         if (!myPV.IsMine)
             return;
