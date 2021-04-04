@@ -9,6 +9,7 @@ public class PlayerActions : MonoBehaviour
     PlayerMove pm;
     TestCollision tc;
     TransferStatus ts;
+    PlayerStatus ps;
 
     public GameObject kick;
     public GameObject punch;
@@ -47,6 +48,7 @@ public class PlayerActions : MonoBehaviour
         pm = GetComponent<PlayerMove>();
         tc = capsuleCollider.GetComponent<TestCollision>();
         ts = punch.GetComponent<TransferStatus>();
+        ps = GetComponent<PlayerStatus>();
         currentKickTime = startingKickTime;
         currentPunchTime = startingPunchTime;
         currentStaggeredTime = startingStaggeredTime;
@@ -169,9 +171,11 @@ public class PlayerActions : MonoBehaviour
         {
             this.runner = true;
             this.hunter = false;
+            ps.isHunter = false;
         }
         else if (Input.GetKeyDown(KeyCode.P))
         {
+            ps.isHunter = true;
             this.hunter = true;
             this.runner = false;
         }
