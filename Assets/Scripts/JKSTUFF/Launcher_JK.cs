@@ -7,6 +7,7 @@ using Photon.Realtime;
 
 public class Launcher_JK : MonoBehaviourPunCallbacks
 {
+    #region - Components -
     public static Launcher_JK Instance;
 
     [SerializeField] TMP_InputField roomNameInputField;
@@ -17,6 +18,7 @@ public class Launcher_JK : MonoBehaviourPunCallbacks
     [SerializeField] GameObject roomListItemPrefab;
     [SerializeField] GameObject PlayerListItemPrefab;
     [SerializeField] GameObject startGameButton;
+    #endregion
 
     private void Awake()
     {
@@ -59,7 +61,6 @@ public class Launcher_JK : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         MenuManager.Instance.OpenMenu("Room Menu");
-        Debug.Log(roomNameText);
         roomNameText.text = PhotonNetwork.CurrentRoom.Name;
 
         Player[] players = PhotonNetwork.PlayerList;
@@ -95,7 +96,6 @@ public class Launcher_JK : MonoBehaviourPunCallbacks
 
     public void LeaveRoom()
     {
-        Debug.Log("Leaving Room!");
         PhotonNetwork.LeaveRoom();
         MenuManager.Instance.OpenMenu("Main Menu");
     }

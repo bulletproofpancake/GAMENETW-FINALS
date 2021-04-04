@@ -1,22 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class TestCollision : MonoBehaviour
 {
     public bool isStaggered;
     public bool becomeHunter = false;
+    PhotonView myPV;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        myPV = GetComponent<PhotonView>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     private void OnCollisionEnter(Collision col)

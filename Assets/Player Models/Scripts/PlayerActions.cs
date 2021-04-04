@@ -78,7 +78,7 @@ public class PlayerActions : MonoBehaviour
             PlayerStatus();
         if (myPV.IsMine)
         {
-            myPV.RPC("OnCollisionEnter", RpcTarget.AllViaServer);
+            //myPV.RPC("OnCollisionEnter", RpcTarget.AllViaServer);
             myPV.RPC("PlayerStatus", RpcTarget.AllViaServer);
         }
     }
@@ -87,6 +87,10 @@ public class PlayerActions : MonoBehaviour
     [PunRPC]
     private void OnCollisionEnter(Collision collision)
     {
+        if(kick.activeSelf == true)
+        {
+
+        }
         //TO DO:
         //Check Collision of Attack States
         //Player should not collide with itself
@@ -210,37 +214,24 @@ public class PlayerActions : MonoBehaviour
     [PunRPC]
     void PlayerStatus()
     {
-        if (gameObject.GetComponent<PlayerStatus>().isHunter == true)
+        //if (gameObject.GetComponent<PlayerStatus>().isHunter == true)
+        //{
+        //    this.hunter = true;
+        //}
+        if (tc.becomeHunter == true)
         {
             this.hunter = true;
             this.runner = false;
+            ts.becomeRunner = false;
             pm.speed = 9;
         }
-        if (gameObject.GetComponent<PlayerStatus>().isHunter == true)
+        else if (ts.becomeRunner == true)
         {
-            this.hunter = false;
             this.runner = true;
+            this.hunter = false;
+            tc.becomeHunter = false;
             pm.speed = 6;
         }
-
-        //if(gameObject.GetComponent<PlayerStatus>().isHunter == true)
-        //{
-        //    this.hunter = true;
-        //}
-        //if (tc.becomeHunter == true)
-        //{
-        //    this.hunter = true;
-        //    this.runner = false;
-        //    ts.becomeRunner = false;
-        //    pm.speed = 9;
-        //}
-        //else if (ts.becomeRunner == true)
-        //{
-        //    this.runner = true;
-        //    this.hunter = false;
-        //    tc.becomeHunter = false;
-        //    pm.speed = 6;
-        //}
 
         //temporary code to see the actions --- O for runner status || P for hunter status
         if (Input.GetKeyDown(KeyCode.O))

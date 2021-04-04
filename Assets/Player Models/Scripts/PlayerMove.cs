@@ -42,6 +42,8 @@ public class PlayerMove : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         myPV = GetComponent<PhotonView>();
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
     }
     void Start()
     {

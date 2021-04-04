@@ -19,14 +19,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (myPV.IsMine)
         {
-            myPV.RPC("SetRoles", RpcTarget.AllViaServer);
+            //myPV.RPC("SetRoles", RpcTarget.AllViaServer);
         }
     }
 
     [PunRPC]
     private void SetRoles()
     {
-        Debug.Log("Set Roles activated");
         //Randomly assign roles
         //1 Hunter should exist in any given time
         //all other players are Runners
