@@ -16,22 +16,21 @@ public class PlayerNameInputField : MonoBehaviour
 
      private void Awake()
      {
-          inputField = GetComponent<TMP_InputField>();
+        inputField = GetComponent<TMP_InputField>(); 
      }
 
-     private void Start()
-     {
-          string defaultPlayerName = string.Empty;
-          if (inputField != null)
-          {
-               if (PlayerPrefs.HasKey(playerNamePrefKey))
-               {
-                    defaultPlayerName = PlayerPrefs.GetString(playerNamePrefKey);
-                    inputField.text = defaultPlayerName;
-               }
-          }
-     }
-
+    private void Start()
+    {
+        string defaultPlayerName = string.Empty;
+        if (inputField != null)
+        {
+            if (PlayerPrefs.HasKey(playerNamePrefKey))
+            {
+                defaultPlayerName = PlayerPrefs.GetString(playerNamePrefKey);
+                inputField.text = defaultPlayerName;
+            }
+        }
+    }
 
     public void SetPlayerName(string value)
      {

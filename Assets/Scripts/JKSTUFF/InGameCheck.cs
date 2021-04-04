@@ -23,7 +23,6 @@ public class InGameCheck : MonoBehaviourPunCallbacks
         if (myPV.IsMine)
         {
             myPV.RPC("setRoles", RpcTarget.AllViaServer);
-            myPV.RPC("transferHunter", RpcTarget.AllViaServer);
         }
 
     }
@@ -35,7 +34,7 @@ public class InGameCheck : MonoBehaviourPunCallbacks
         //Randomize
         foreach(Player player in PhotonNetwork.PlayerList)
         {
-                this.gameObject.GetComponent<PlayerStatus>().isHunter = true;
+                this.gameObject.GetComponent<PlayerStatus>().isHunter = false;
         }
     }
 

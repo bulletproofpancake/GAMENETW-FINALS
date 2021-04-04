@@ -43,7 +43,7 @@ public class Launcher_JK : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        MenuManager.Instance.OpenMenu("Title Menu");
+        MenuManager.Instance.OpenMenu("Login");
         PhotonNetwork.NickName = "Player " + Random.Range(0, 1000).ToString("0000");
     }
 
@@ -98,7 +98,7 @@ public class Launcher_JK : MonoBehaviourPunCallbacks
     {
         Debug.Log("Leaving Room!");
         PhotonNetwork.LeaveRoom();
-        MenuManager.Instance.OpenMenu("Loading");
+        MenuManager.Instance.OpenMenu("Title Menu");
     }
 
     public override void OnLeftRoom()
