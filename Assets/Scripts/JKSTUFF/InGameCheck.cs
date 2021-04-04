@@ -7,6 +7,8 @@ public class InGameCheck : MonoBehaviourPunCallbacks
 {
     PhotonView myPV;
 
+
+
     private void Awake()
     {
         myPV = GetComponent<PhotonView>();
@@ -33,7 +35,7 @@ public class InGameCheck : MonoBehaviourPunCallbacks
         //Randomize
         foreach(Player player in PhotonNetwork.PlayerList)
         {
-            this.gameObject.GetComponent<PlayerStatus>().isHunter = true;
+                this.gameObject.GetComponent<PlayerStatus>().isHunter = true;
         }
     }
 
@@ -43,6 +45,6 @@ public class InGameCheck : MonoBehaviourPunCallbacks
         if (!myPV.IsMine) // This only affects the targeted player
             return;
         //Transfer the hunter status by attacking another player.
-
+        //Make sure to turn off the hunter status of the transferrer
     }
 }

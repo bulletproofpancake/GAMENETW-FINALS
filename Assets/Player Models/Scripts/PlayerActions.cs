@@ -75,9 +75,37 @@ public class PlayerActions : MonoBehaviour
             Punch();
             Stagger();
             PlayerStatus();
+        if (myPV.IsMine)
+        {
+            myPV.RPC("OnCollisionEnter", RpcTarget.AllViaServer);
+        }
     }
 
-[PunRPC]
+    [PunRPC]
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (kick.activeSelf == true && collision.collider)
+        {
+
+        }
+
+        if (punch.activeSelf == true && collision.collider && collision.gameObject.GetComponent<PlayerActions>())
+        {
+            if (!myPV.IsMine)//sets data to the other player
+            {
+                collision.gameObject.GetComponent<PlayerStatus>().isHunter = true;
+                collision.gameObject.GetComponent<PlayerActions>().hunter = true;
+                Debug.Log(collision.gameObject + PhotonNetwork.NickName + "OTHER PLAYER");
+            }
+            if (myPV.IsMine)//sets data to your client
+            {
+                this.gameObject.GetComponent<PlayerActions>().hunter = false;
+                this.gameObject.GetComponent<PlayerActions>().runner = true;
+                this.gameObject.GetComponent<PlayerStatus>().isHunter = false;
+                Debug.Log(collision.gameObject + PhotonNetwork.NickName + "CLIENT");
+            }
+        }
+    }
 
     #region - Kick -
     void Kick()
@@ -148,6 +176,7 @@ public class PlayerActions : MonoBehaviour
     #endregion
 
     #region - Stagger -
+    [PunRPC]
     void Stagger()
     {
         if (tc.isStaggered == true)
