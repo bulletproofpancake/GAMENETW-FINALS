@@ -7,8 +7,6 @@ public class InGameCheck : MonoBehaviourPunCallbacks
 {
     PhotonView myPV;
 
-
-
     private void Awake()
     {
         myPV = GetComponent<PhotonView>();
@@ -22,8 +20,9 @@ public class InGameCheck : MonoBehaviourPunCallbacks
         }
         if (myPV.IsMine)
         {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Confined;
             myPV.RPC("setRoles", RpcTarget.AllViaServer);
-            myPV.RPC("transferHunter", RpcTarget.AllViaServer);
         }
 
     }
@@ -37,14 +36,5 @@ public class InGameCheck : MonoBehaviourPunCallbacks
         {
                 this.gameObject.GetComponent<PlayerStatus>().isHunter = true;
         }
-    }
-
-    [PunRPC]
-    void transferHunter()
-    {
-        if (!myPV.IsMine) // This only affects the targeted player
-            return;
-        //Transfer the hunter status by attacking another player.
-        //Make sure to turn off the hunter status of the transferrer
     }
 }

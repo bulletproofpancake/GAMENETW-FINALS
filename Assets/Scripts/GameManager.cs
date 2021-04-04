@@ -27,22 +27,18 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void SetRoles()
     {
         Debug.Log("Set Roles activated");
+        //Randomly assign roles
+        //1 Hunter should exist in any given time
+        //all other players are Runners
         //This should be called in All Clients IN THE ROOM
         //This should only be called AFTER starting the game
-
-        //players[Random.Range(0, PhotonNetwork.CountOfPlayersInRooms)].isHunter = true;
-        //foreach (var player in players)
-        //{
-        //    if (!player.isHunter)
-        //    {
-        //        player.GetComponent<PlayerActions>().enabled = false;
-        //        player.GetComponent<PlayerMove>().enabled = false;
-        //    }
-        //}
     }
 
-    public void _setRoles()
+    [PunRPC]
+    private void TimeToPlay()
     {
-        SetRoles();
+        //1 Set Timer
+        //2 If timer expires show win/lose canvas
+        //3 Press to disconnect to return to main menu
     }
 }

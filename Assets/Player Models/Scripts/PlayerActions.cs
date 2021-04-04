@@ -24,6 +24,7 @@ public class PlayerActions : MonoBehaviour
     #region - Player Bool Variables -
     [SerializeField] private bool hunter = false;
     [SerializeField] private bool runner = true;
+    PlayerStatus playerStatus;
     #endregion
 
     #region - Kick Variables -
@@ -78,33 +79,45 @@ public class PlayerActions : MonoBehaviour
         if (myPV.IsMine)
         {
             myPV.RPC("OnCollisionEnter", RpcTarget.AllViaServer);
+            myPV.RPC("PlayerStatus", RpcTarget.AllViaServer);
         }
     }
 
+    //PUN RPC IS USED FOR SENDING DATA FROM CLIENT TO SERVER
     [PunRPC]
     private void OnCollisionEnter(Collision collision)
     {
-        if (kick.activeSelf == true && collision.collider)
-        {
+        //TO DO:
+        //Check Collision of Attack States
+        //Player should not collide with itself
+        //Hunter should be able to transfer status on collide
+        //The receiver of the Hunter Status will be staggered for a few seconds
+        //Add like particle fx on change status
+        //Hunter Status of the transferer will be changed to Runner
+        #region - Attack Logic OLD -
+        //if (kick.activeSelf == true)
+        //{
+        //    Debug.Log("Kick");
+        //}
+        //if (punch.activeSelf == true && collision.gameObject.GetComponent<CharacterController>())
+        //{
+        //    if (!myPV.IsMine)//sets data to the other player
+        //    {
+        //        collision.gameObject.GetComponent<PlayerStatus>().isHunter = true;
+        //        collision.gameObject.GetComponent<PlayerActions>().hunter = true;
+        //        Debug.Log(collision.gameObject + PhotonNetwork.NickName + "OTHER PLAYER");
+        //    }
+        //    if (myPV.IsMine)//sets data to your client
+        //    {
+        //        Debug.Log(collision.gameObject + PhotonNetwork.NickName);
+        //        Debug.Log(PhotonNetwork.NickName + " Is Punching");
+        //        this.gameObject.GetComponent<PlayerActions>().runner = true;
+        //        this.gameObject.GetComponent<PlayerActions>().hunter = false;
+        //        this.gameObject.GetComponent<PlayerStatus>().isHunter = false;
 
-        }
-
-        if (punch.activeSelf == true && collision.collider && collision.gameObject.GetComponent<PlayerActions>())
-        {
-            if (!myPV.IsMine)//sets data to the other player
-            {
-                collision.gameObject.GetComponent<PlayerStatus>().isHunter = true;
-                collision.gameObject.GetComponent<PlayerActions>().hunter = true;
-                Debug.Log(collision.gameObject + PhotonNetwork.NickName + "OTHER PLAYER");
-            }
-            if (myPV.IsMine)//sets data to your client
-            {
-                this.gameObject.GetComponent<PlayerActions>().hunter = false;
-                this.gameObject.GetComponent<PlayerActions>().runner = true;
-                this.gameObject.GetComponent<PlayerStatus>().isHunter = false;
-                Debug.Log(collision.gameObject + PhotonNetwork.NickName + "CLIENT");
-            }
-        }
+        //    }
+        //}
+        #endregion // OLD
     }
 
     #region - Kick -
@@ -194,26 +207,40 @@ public class PlayerActions : MonoBehaviour
     }
     #endregion
 
+    [PunRPC]
     void PlayerStatus()
     {
-        if(gameObject.GetComponent<PlayerStatus>().isHunter == true)
-        {
-            this.hunter = true;
-        }
-        if (tc.becomeHunter == true)
+        if (gameObject.GetComponent<PlayerStatus>().isHunter == true)
         {
             this.hunter = true;
             this.runner = false;
-            ts.becomeRunner = false;
             pm.speed = 9;
         }
-        else if (ts.becomeRunner == true)
+        if (gameObject.GetComponent<PlayerStatus>().isHunter == true)
         {
-            this.runner = true;
             this.hunter = false;
-            tc.becomeHunter = false;
+            this.runner = true;
             pm.speed = 6;
         }
+
+        //if(gameObject.GetComponent<PlayerStatus>().isHunter == true)
+        //{
+        //    this.hunter = true;
+        //}
+        //if (tc.becomeHunter == true)
+        //{
+        //    this.hunter = true;
+        //    this.runner = false;
+        //    ts.becomeRunner = false;
+        //    pm.speed = 9;
+        //}
+        //else if (ts.becomeRunner == true)
+        //{
+        //    this.runner = true;
+        //    this.hunter = false;
+        //    tc.becomeHunter = false;
+        //    pm.speed = 6;
+        //}
 
         //temporary code to see the actions --- O for runner status || P for hunter status
         if (Input.GetKeyDown(KeyCode.O))
