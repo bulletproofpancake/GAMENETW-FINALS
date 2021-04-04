@@ -1,4 +1,5 @@
 ﻿using System;
+using Photon.Pun;
 using UnityEngine;
 
 public class Ground : MonoBehaviour
@@ -76,6 +77,7 @@ public class Ground : MonoBehaviour
 
     private Material _material;
     private Color _colorBase;
+    private PhotonView myPV;
 
     public bool spawnPoint, isActive, hasPlayer, isRaised;
     
@@ -92,6 +94,14 @@ public class Ground : MonoBehaviour
     }
     
     private void Update()
+    {
+        if (!myPV.IsMine)
+            return;
+        myPV.RPC("ChangeColor",RpcTarget.AllViaServer);
+    }
+
+    [PunRPC]
+    private void ChangeColor()
     {
         if (isActive)
             _material.color = hasPlayer ? Color.red : Color.yellow;

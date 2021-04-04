@@ -1570,6 +1570,8 @@ MonoBehaviour:
   kick: {fileID: 2645072446681210676}
   punch: {fileID: 2645072445841981819}
   capsuleCollider: {fileID: 2645072446785179850}
+  skinnedMeshRenderer: {fileID: 7331606893668828968}
+  material: {fileID: 0}
   hunter: 0
   runner: 0
   currentKickTime: 0

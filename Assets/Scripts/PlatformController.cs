@@ -26,6 +26,7 @@ public class PlatformController : MonoBehaviour
 
     private void Start()
     {
+        //Only the Master Client can Raise Platforms
         if (!myPV.IsMine||!PhotonNetwork.IsMasterClient)
             return;
         InvokeRepeating("RaisePlatform",1f,Random.Range(repeatMin,repeatMax));
@@ -36,7 +37,7 @@ public class PlatformController : MonoBehaviour
     {
         if (!myPV.IsMine)
             return;
-        myPV.RPC("RPCRaisePlatform",RpcTarget.AllBufferedViaServer);
+        myPV.RPC("RPCRaisePlatform",RpcTarget.AllViaServer);
     }
     
     [PunRPC]
