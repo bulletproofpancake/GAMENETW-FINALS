@@ -7,8 +7,6 @@ public class InGameCheck : MonoBehaviourPunCallbacks
 {
     PhotonView myPV;
 
-
-
     private void Awake()
     {
         myPV = GetComponent<PhotonView>();
@@ -22,6 +20,8 @@ public class InGameCheck : MonoBehaviourPunCallbacks
         }
         if (myPV.IsMine)
         {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Confined;
             myPV.RPC("setRoles", RpcTarget.AllViaServer);
         }
 
