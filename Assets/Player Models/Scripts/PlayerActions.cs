@@ -13,6 +13,7 @@ public class PlayerActions : MonoBehaviour
     TransferStatus ts;
     PhotonView myPV;
     Rigidbody rb;
+    PlayerStatus ps;
 
     public GameObject kick;
     public GameObject punch;
@@ -50,6 +51,7 @@ public class PlayerActions : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         pm = GetComponent<PlayerMove>();
+        ps = GetComponent<PlayerStatus>();
         tc = capsuleCollider.GetComponent<TestCollision>();
         ts = punch.GetComponent<TransferStatus>();
         _capsuleCollider = capsuleCollider.GetComponent<CapsuleCollider>();
@@ -273,11 +275,13 @@ public class PlayerActions : MonoBehaviour
         {
             this.runner = true;
             this.hunter = false;
+            ps.isHunter = false;
         }
         else if (Input.GetKeyDown(KeyCode.P))
         {
             this.hunter = true;
             this.runner = false;
+            ps.isHunter = true;
         }
     }
 }
