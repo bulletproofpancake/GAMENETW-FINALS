@@ -97,12 +97,12 @@ public class Launcher_JK : MonoBehaviourPunCallbacks
     public void LeaveRoom()
     {
         PhotonNetwork.LeaveRoom();
-        MenuManager.Instance.OpenMenu("Main Menu");
+        MenuManager.Instance.OpenMenu("Title Menu");
     }
 
     public override void OnLeftRoom()
     {
-        MenuManager.Instance.OpenMenu("Main Menu"); 
+        MenuManager.Instance.OpenMenu("Title Menu"); 
     }
 
     public void JoinRoom(RoomInfo info)
