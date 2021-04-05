@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (myPV.IsMine)
         {
-            //myPV.RPC("SetRoles", RpcTarget.AllViaServer);
+           // myPV.RPC("SetRoles", RpcTarget.AllViaServer);
         }
     }
 
