@@ -83,6 +83,7 @@ public class Ground : MonoBehaviour
     
     private void Awake()
     {
+        myPV = GetComponent<PhotonView>();
         _material = GetComponent<Renderer>().material;
         _colorBase = _material.color;
     }
@@ -95,12 +96,11 @@ public class Ground : MonoBehaviour
     
     private void Update()
     {
-        if (!myPV.IsMine)
+        if (!myPV.IsMine && !PhotonNetwork.IsMasterClient)
             return;
-        myPV.RPC("ChangeColor",RpcTarget.AllViaServer);
+        ChangeColor();
     }
 
-    [PunRPC]
     private void ChangeColor()
     {
         if (isActive)
