@@ -33,56 +33,69 @@ public class PlatformController : MonoBehaviour
         
     }
 
+    #region PlatformRaise
     private void RaisePlatform()
     {
-        if (!myPV.IsMine)
-            return;
-        myPV.RPC("RPCRaisePlatform",RpcTarget.AllViaServer);
+        var ground = grounds[Random.Range(0, grounds.Count)];
+        myPV.RPC("RPCRaisePlatform",RpcTarget.AllViaServer,ground.gameObject.GetComponent<PhotonView>().ViewID);
     }
     
     [PunRPC]
-    private void RPCRaisePlatform()
+    private void RPCRaisePlatform(int viewID)
     {
-        StartCoroutine(Raise());
+        StartCoroutine(Raise(viewID));
     }
 
-    private IEnumerator Raise()
+    private IEnumerator Raise(int viewID)
     {
-        var timer = raiseDuration;
-        var ground = grounds[Random.Range(0, grounds.Count)];
-        var rb = ground.GetComponent<Rigidbody>();
-
-        if(!ground.isRaised){
-            while (timer > 0)
-            {
-                ground.isActive = true;
-                rb.MovePosition(rb.position + Vector3.up * (raiseSpeed * Time.fixedDeltaTime));
-                yield return new WaitForEndOfFrame();
-                timer -= Time.deltaTime;
-            }
-
-            rb.velocity = Vector3.zero;
-            ground.isActive = false;
-            ground.isRaised = true;
-            rb.position = new Vector3(rb.position.x, Mathf.Clamp(rb.position.y, 0, 1), rb.position.z);
-        }
-        else
+        yield return new WaitForSeconds(1.0f);
+        
+        foreach (var ground in grounds)
         {
-            while (timer > 0)
+            if (ground.gameObject.GetComponent<PhotonView>().ViewID == viewID)
             {
-                ground.isActive = true;
-                rb.MovePosition(rb.position + Vector3.down * (raiseSpeed * Time.fixedDeltaTime));
-                yield return new WaitForEndOfFrame();
-                timer -= Time.deltaTime;
+                var timer = raiseDuration;
+                var rb = ground.gameObject.GetComponent<Rigidbody>();
+
+                if(!ground.isRaised){
+                    while (timer > 0)
+                    {
+                        ground.isActive = true;
+                        ground.ChangeColor(Color.yellow);
+                        rb.MovePosition(rb.position + Vector3.up * (raiseSpeed * Time.fixedDeltaTime));
+                        yield return new WaitForEndOfFrame();
+                        timer -= Time.deltaTime;
+                    }
+
+                    rb.velocity = Vector3.zero;
+                    ground.isActive = false;
+                    ground.isRaised = true;
+                    ground.ChangeColor(Color.cyan);
+                    rb.position = new Vector3(rb.position.x, Mathf.Clamp(rb.position.y, 0, 1), rb.position.z);
+                }
+                else
+                {
+                    while (timer > 0)
+                    {
+                        ground.isActive = true;
+                        ground.ChangeColor(Color.yellow);
+                        rb.MovePosition(rb.position + Vector3.down * (raiseSpeed * Time.fixedDeltaTime));
+                        yield return new WaitForEndOfFrame();
+                        timer -= Time.deltaTime;
+                    }
+
+                    rb.velocity = Vector3.zero;
+                    ground.isActive = false;
+                    ground.isRaised = false;
+                    ground.ChangeColor(ground.colorBase);
+                    rb.position = new Vector3(rb.position.x, Mathf.Clamp(rb.position.y, -1, 0), rb.position.z);
+                }
             }
-
-            rb.velocity = Vector3.zero;
-            ground.isActive = false;
-            ground.isRaised = false;
-            rb.position = new Vector3(rb.position.x, Mathf.Clamp(rb.position.y, -1, 0), rb.position.z);
         }
+        
     }
-
+    #endregion
+    
     public IEnumerator RemoveHunter(GameObject player)
     {
         yield return new WaitForEndOfFrame();

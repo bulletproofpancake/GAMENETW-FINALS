@@ -76,7 +76,7 @@ public class Ground : MonoBehaviour
     #endregion
 
     private Material _material;
-    private Color _colorBase;
+    public Color colorBase;
     private PhotonView myPV;
 
     public bool spawnPoint, isActive, hasPlayer, isRaised;
@@ -85,7 +85,7 @@ public class Ground : MonoBehaviour
     {
         myPV = GetComponent<PhotonView>();
         _material = GetComponent<Renderer>().material;
-        _colorBase = _material.color;
+        colorBase = _material.color;
     }
 
     private void Start()
@@ -94,22 +94,18 @@ public class Ground : MonoBehaviour
         PlatformController.Instance.grounds.Add(this);
     }
     
-    private void Update()
+    public void ChangeColor(Color c)
     {
-        if (!myPV.IsMine && !PhotonNetwork.IsMasterClient)
-            return;
-        myPV.RPC("ChangeColor",RpcTarget.AllViaServer);
-    }
+    
+        //     if (isActive)
+        //         _material.color = hasPlayer ? Color.red : Color.yellow;
+        //     else if (isRaised)
+        //         _material.color = hasPlayer ? Color.red : Color.cyan;
+        //     else
+        //         _material.color = hasPlayer ? Color.green : _colorBase;
 
-    [PunRPC]
-    private void ChangeColor()
-    {
-        if (isActive)
-            _material.color = hasPlayer ? Color.red : Color.yellow;
-        else if (isRaised)
-            _material.color = hasPlayer ? Color.red : Color.cyan;
-        else
-            _material.color = hasPlayer ? Color.green : _colorBase;
+        _material.color = c;
+
     }
 
     private void OnCollisionEnter(Collision other)
