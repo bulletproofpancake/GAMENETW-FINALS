@@ -98,9 +98,10 @@ public class Ground : MonoBehaviour
     {
         if (!myPV.IsMine && !PhotonNetwork.IsMasterClient)
             return;
-        ChangeColor();
+        myPV.RPC("ChangeColor",RpcTarget.AllViaServer);
     }
 
+    [PunRPC]
     private void ChangeColor()
     {
         if (isActive)
