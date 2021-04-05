@@ -99,8 +99,9 @@ public class PlayerActions : MonoBehaviour
                 Debug.Log("Kick");
             }
 
-            if (contact.otherCollider.name == "PlayerController(Clone)")
+            if (contact.otherCollider.name == "Collision Check")
             {
+                print(contact.thisCollider.name + " hit " + contact.otherCollider.name);
                 if (punch.activeSelf == true)
                 {
                     if (!myPV.IsMine)//sets data to the other player
