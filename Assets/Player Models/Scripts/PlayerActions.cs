@@ -222,6 +222,7 @@ public class PlayerActions : MonoBehaviour
         {
             this.hunter = true;
             this.runner = false;
+            playerStatus.isHunter = true;
             ts.becomeRunner = false;
             pm.speed = 9;
         }
@@ -229,6 +230,7 @@ public class PlayerActions : MonoBehaviour
         {
             this.runner = true;
             this.hunter = false;
+            playerStatus.isHunter = false;
             tc.becomeHunter = false;
             pm.speed = 6;
         }
