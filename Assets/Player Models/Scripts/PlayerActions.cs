@@ -90,36 +90,37 @@ public class PlayerActions : MonoBehaviour
     [PunRPC]
     private void OnCollisionEnter(Collision collision)
     {
-        //Transform other;
-        //other = collision.transform.Find("Collision Check");
-
-        if (kick.activeSelf == true)
+        foreach(ContactPoint contact in collision.contacts)
         {
-            Debug.Log("Kick");
-        }
-
-        if (collision.transform.Find("Collision Check"))
-        {
-            if (punch.activeSelf == true)
+            if (kick.activeSelf == true)
             {
-                if (!myPV.IsMine)//sets data to the other player
-                {
-                    collision.gameObject.GetComponent<PlayerStatus>().isHunter = true;
-                    collision.gameObject.GetComponent<PlayerActions>().hunter = true;
-                    collision.gameObject.GetComponent<PlayerActions>().runner = false;
-                    Debug.Log(collision.gameObject + PhotonNetwork.NickName + "OTHER PLAYER");
-                }
-                if (myPV.IsMine)//sets data to your client
-                {
-                    Debug.Log(collision.gameObject + PhotonNetwork.NickName);
-                    Debug.Log(PhotonNetwork.NickName + " Is Punching");
-                    this.gameObject.GetComponent<PlayerActions>().runner = true;
-                    this.gameObject.GetComponent<PlayerActions>().hunter = false;
-                    this.gameObject.GetComponent<PlayerStatus>().isHunter = false;
+                Debug.Log("Kick");
+            }
 
+            if (contact.otherCollider.name == "PlayerController(Clone)")
+            {
+                if (punch.activeSelf == true)
+                {
+                    if (!myPV.IsMine)//sets data to the other player
+                    {
+                        collision.gameObject.GetComponent<PlayerStatus>().isHunter = true;
+                        collision.gameObject.GetComponent<PlayerActions>().hunter = true;
+                        collision.gameObject.GetComponent<PlayerActions>().runner = false;
+                        Debug.Log(collision.gameObject + PhotonNetwork.NickName + "OTHER PLAYER");
+                    }
+                    if (myPV.IsMine)//sets data to your client
+                    {
+                        Debug.Log(collision.gameObject + PhotonNetwork.NickName);
+                        Debug.Log(PhotonNetwork.NickName + " Is Punching");
+                        this.gameObject.GetComponent<PlayerActions>().runner = true;
+                        this.gameObject.GetComponent<PlayerActions>().hunter = false;
+                        this.gameObject.GetComponent<PlayerStatus>().isHunter = false;
+                    }
                 }
             }
         }
+
+        
 
         //TO DO:
         //Check Collision of Attack States
