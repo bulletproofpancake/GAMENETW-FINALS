@@ -94,6 +94,7 @@ public class PlayerActions : MonoBehaviour
     {
         foreach(ContactPoint contact in collision.contacts)
         {
+            print(contact.thisCollider.name + " hit " + contact.otherCollider.name);
             if (kick.activeSelf == true)
             {
                 Debug.Log("Kick");
@@ -101,7 +102,6 @@ public class PlayerActions : MonoBehaviour
 
             if (contact.otherCollider.name == "Collision Check")
             {
-                print(contact.thisCollider.name + " hit " + contact.otherCollider.name);
                 if (punch.activeSelf == true)
                 {
                     if (!myPV.IsMine)//sets data to the other player
