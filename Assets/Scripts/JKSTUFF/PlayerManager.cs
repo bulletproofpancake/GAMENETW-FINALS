@@ -7,6 +7,7 @@ using System.IO;
 public class PlayerManager : MonoBehaviour
 {
     PhotonView myPV;
+    GameManager gm;
 
     private void Awake()
     {
@@ -24,5 +25,6 @@ public class PlayerManager : MonoBehaviour
     void CreateController()//This is what gives each players their characters with their own respective controllers
     {
         PhotonNetwork.Instantiate(Path.Combine("Photon Prefabs", "PlayerController"), Vector3.zero, Quaternion.identity, 0, new object[] { myPV.ViewID });
+        gm.GetPlayer(PhotonNetwork.Instantiate(Path.Combine("Photon Prefabs", "PlayerController"), Vector3.zero, Quaternion.identity, 0, new object[] { myPV.ViewID }));
     }
 }
