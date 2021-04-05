@@ -17,7 +17,7 @@ public class PlayerActions : MonoBehaviour
     public GameObject kick;
     public GameObject punch;
     public GameObject capsuleCollider;
-
+    private CapsuleCollider _capsuleCollider;
 
     #endregion
 
@@ -52,6 +52,8 @@ public class PlayerActions : MonoBehaviour
         pm = GetComponent<PlayerMove>();
         tc = capsuleCollider.GetComponent<TestCollision>();
         ts = punch.GetComponent<TransferStatus>();
+        _capsuleCollider = capsuleCollider.GetComponent<CapsuleCollider>();
+
         currentKickTime = startingKickTime;
         currentPunchTime = startingPunchTime;
         currentStaggeredTime = startingStaggeredTime;
@@ -68,6 +70,7 @@ public class PlayerActions : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         myPV = GetComponent<PhotonView>();
     }
+
     void Update()
     {
         if (!myPV.IsMine)
@@ -87,10 +90,37 @@ public class PlayerActions : MonoBehaviour
     [PunRPC]
     private void OnCollisionEnter(Collision collision)
     {
-        if(kick.activeSelf == true)
-        {
+        //Transform other;
+        //other = collision.transform.Find("Collision Check");
 
+        if (kick.activeSelf == true)
+        {
+            Debug.Log("Kick");
         }
+
+        if (collision.transform.Find("Collision Check"))
+        {
+            if (punch.activeSelf == true)
+            {
+                if (!myPV.IsMine)//sets data to the other player
+                {
+                    collision.gameObject.GetComponent<PlayerStatus>().isHunter = true;
+                    collision.gameObject.GetComponent<PlayerActions>().hunter = true;
+                    collision.gameObject.GetComponent<PlayerActions>().runner = false;
+                    Debug.Log(collision.gameObject + PhotonNetwork.NickName + "OTHER PLAYER");
+                }
+                if (myPV.IsMine)//sets data to your client
+                {
+                    Debug.Log(collision.gameObject + PhotonNetwork.NickName);
+                    Debug.Log(PhotonNetwork.NickName + " Is Punching");
+                    this.gameObject.GetComponent<PlayerActions>().runner = true;
+                    this.gameObject.GetComponent<PlayerActions>().hunter = false;
+                    this.gameObject.GetComponent<PlayerStatus>().isHunter = false;
+
+                }
+            }
+        }
+
         //TO DO:
         //Check Collision of Attack States
         //Player should not collide with itself
@@ -131,11 +161,12 @@ public class PlayerActions : MonoBehaviour
         {
             if(Input.GetMouseButtonDown(0) && cooldownKick == false)
             {
+                _capsuleCollider.enabled = false;
                 anim.SetBool("isJumping", false);
                 anim.SetTrigger("isKicking");
                 cooldownKick = true;
                 kick.SetActive(true);
-                capsuleCollider.SetActive(false);
+                //capsuleCollider.SetActive(false);
             }
 
             if (cooldownKick == true)
@@ -146,7 +177,8 @@ public class PlayerActions : MonoBehaviour
             if (currentKickTime <= 2)
             {
                 kick.SetActive(false);
-                capsuleCollider.SetActive(true);
+                _capsuleCollider.enabled = true;
+                //capsuleCollider.SetActive(true);
             }
 
             if(currentKickTime <= 0)
@@ -165,11 +197,12 @@ public class PlayerActions : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0) && cooldownPunch == false)
             {
+                _capsuleCollider.enabled = false;
                 anim.SetBool("isJumping", false);
                 anim.SetTrigger("isPunching");
                 cooldownPunch = true;
                 punch.SetActive(true);
-                capsuleCollider.SetActive(false);
+                //capsuleCollider.SetActive(false);
             }
 
             if (cooldownPunch == true)
@@ -180,7 +213,8 @@ public class PlayerActions : MonoBehaviour
             if (currentPunchTime <= 2)
             {
                 punch.SetActive(false);
-                capsuleCollider.SetActive(true);
+                _capsuleCollider.enabled = true;
+                //capsuleCollider.SetActive(true);
             }
 
             if (currentPunchTime <= 0)
