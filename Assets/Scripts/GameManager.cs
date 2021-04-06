@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     PlayerActions pa;
     TestCollision tc;
     [SerializeField] Player[] players = PhotonNetwork.PlayerList;
-    [SerializeField] List<GameObject> getPlayers;
+    public List<PlayerActions> getPlayers;
 
     private void Awake()
     {
@@ -21,41 +21,43 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        if (myPV.IsMine)
+        if (myPV.IsMine && PhotonNetwork.IsMasterClient)
         {
-           // myPV.RPC("SetRoles", RpcTarget.AllViaServer);
+           myPV.RPC("SetRoles", RpcTarget.AllViaServer);
+           myPV.RPC("GetPlayer", RpcTarget.AllViaServer);
         }
     }
 
-    public void GetPlayer(GameObject player)
+    [PunRPC]
+    public void GetPlayer(PlayerActions _playerActions)
     {
-        getPlayers.Add(player);
+        getPlayers.Add(_playerActions);//Adds the players in the list
     }
 
 
     [PunRPC]
     private void SetRoles()
     {
-        // ? Need to find a way to access player components.
-        // ! Unable to use PlayerList to access properties of hunter and runner
-
-
         int hunterRole = Random.Range(0, PhotonNetwork.PlayerList.Length); // to whoever was chosen based from the hunterRole, that player will be given the hunter roles.
-     
-        foreach (GameObject go in getPlayers)
-        {
-            go.GetComponent<PlayerStatus>().isHunter = false;
-        }
-
-        getPlayers[hunterRole].GetComponent<PlayerStatus>().isHunter = true;
-
+        Debug.Log("hunterRole" + hunterRole);
+        if (PhotonNetwork.IsMasterClient)
+            {
+                foreach (PlayerActions playerActions in getPlayers)//sets the roles of each players
+                {
+                    playerActions.gameObject.GetComponent<PlayerStatus>().isHunter = false;
+                }
+            }
+            
     }
 
     [PunRPC]
     private void TimeToPlay()
     {
-        //1 Set Timer
-        //2 If timer expires show win/lose canvas
-        //3 Press to disconnect to return to main menu
+        if (PhotonNetwork.IsMasterClient)
+        {
+            //1 Set Timer
+            //2 If timer expires show win/lose canvas
+            //3 Press to disconnect to return to main menu
+        }
     }
 }

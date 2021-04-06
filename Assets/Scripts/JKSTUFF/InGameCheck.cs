@@ -14,15 +14,6 @@ public class InGameCheck : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        foreach (Player player in PhotonNetwork.PlayerList)
-        {
-            Debug.Log(player.NickName + " Hunter status is: " + this.gameObject.GetComponent<PlayerStatus>().isHunter);
-        }
-        if (myPV.IsMine)
-        {
-            myPV.RPC("setRoles", RpcTarget.AllViaServer);
-        }
-
     }
 
     [PunRPC]
