@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void Start()
     {
         myPV.RPC("GetPlayer", RpcTarget.MasterClient);//MasterClient sets all the logic
-        myPV.RPC("SetRoles", RpcTarget.All); ;//MasterClient runs the logic
+        myPV.RPC("SetRoles", RpcTarget.All); //MasterClient runs the logic
 
     }
 
@@ -65,27 +65,27 @@ public class GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     private void SetRoles()//NOT WORKING
     {
-        int hunterRole = Random.Range(0, PhotonNetwork.PlayerList.Length); // to whoever was chosen based from the hunterRole, that player will be given the hunter roles.
-        Debug.Log("hunterRole" + hunterRole);
+        //int hunterRole = Random.Range(0, PhotonNetwork.PlayerList.Length); // to whoever was chosen based from the hunterRole, that player will be given the hunter roles.
+        //Debug.Log("hunterRole" + hunterRole);
 
-        if (PhotonNetwork.IsMasterClient)
-        {
-            foreach (PlayerActions playerActions in getPlayers)
-            {
-                playerActions.gameObject.GetComponent<PlayerStatus>().isHunter = false;
-            }
-        }
-
-        //int pickHunter = Random.Range(0, getPlayers.Count);
-
-        //for (int i = getPlayers.Count; i <= 0; i--)
+        //if (PhotonNetwork.IsMasterClient)
         //{
-        //    //somehow we need to access the components through the list
-        //    if (pickHunter != getPlayers.Count)
-        //        gameObject.GetComponent<PlayerActions>().runner = true;
-        //    else
-        //        gameObject.GetComponent<PlayerActions>().hunter = true;
+        //    foreach (PlayerActions playerActions in getPlayers)
+        //    {
+        //        playerActions.gameObject.GetComponent<PlayerStatus>().isHunter = false;
+        //    }
         //}
+
+        int pickHunter = Random.Range(0, getPlayers.Count);
+
+        for (int i = getPlayers.Count; i >= 0; i--)
+        {
+            //somehow we need to access the components through the list
+            if (pickHunter != getPlayers.Count)
+                gameObject.GetComponent<PlayerActions>().isHunter = false;
+            else
+                gameObject.GetComponent<PlayerActions>().isHunter = true;
+        }
     }
 
     [PunRPC]
