@@ -105,9 +105,9 @@ public class GameManager : MonoBehaviourPunCallbacks
                 //Disconnect button goes back to main menu;
                 
             //PhotonNetwork.Disconnect();
-            //  on disconnect load main menu instead of login 
+                //  on disconnect load main menu instead of login 
             //PhotonNetwork.LoadLevel(0);
-            //  temporary create a win panel then send back to main menu
+                //  temporary create a win panel then send back to main menu
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }

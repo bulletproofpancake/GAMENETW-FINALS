@@ -58,7 +58,7 @@ public class PlayerActions : MonoBehaviour
         if (!myPV.IsMine)
         {
             Destroy(GetComponentInChildren<Camera>().gameObject);//prevents from accessing cameras of other player
-            Destroy(rb);//prevents jittery bug
+            Destroy(rb);//prevents jittery bug //TEST
         }
         
         GameManager.Instance.getPlayers.Add(this);
