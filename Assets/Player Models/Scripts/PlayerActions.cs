@@ -105,7 +105,7 @@ public class PlayerActions : MonoBehaviour
                 {
                     if (!myPV.IsMine)//sets data to the other player
                     {
-                        collision.gameObject.GetComponent<PlayerActions>().ChangeRole();
+                        collision.gameObject.GetComponent<PlayerActions>().myPV.RPC("ChangeRole",RpcTarget.AllBufferedViaServer);
                         Debug.Log(collision.gameObject + PhotonNetwork.NickName + "OTHER PLAYER");
                     }
 
@@ -113,7 +113,7 @@ public class PlayerActions : MonoBehaviour
                     {
                         Debug.Log(collision.gameObject + PhotonNetwork.NickName);
                         Debug.Log(PhotonNetwork.NickName + " Is Punching");
-                        this.gameObject.GetComponent<PlayerActions>().ChangeRole();
+                        myPV.RPC("ChangeRole",RpcTarget.AllBufferedViaServer);
                     }
                 }
             }
