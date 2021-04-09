@@ -91,10 +91,34 @@ public class PlayerActions : MonoBehaviour
     [PunRPC]
     private void OnCollisionEnter(Collision collision)
     {
-        if(kick.activeSelf == true)
+        foreach(ContactPoint contact in collision.contacts)
         {
+            print(contact.thisCollider.name + " hit " + contact.otherCollider.name);
+            if (kick.activeSelf == true)
+            {
+                Debug.Log("Kick");
+            }
 
+            if (contact.otherCollider.name == "Collision Check")
+            {
+                if (punch.activeSelf == true)
+                {
+                    if (!myPV.IsMine)//sets data to the other player
+                    {
+                        collision.gameObject.GetComponent<PlayerActions>().ChangeRole();
+                        Debug.Log(collision.gameObject + PhotonNetwork.NickName + "OTHER PLAYER");
+                    }
+
+                    if (myPV.IsMine)//sets data to your client
+                    {
+                        Debug.Log(collision.gameObject + PhotonNetwork.NickName);
+                        Debug.Log(PhotonNetwork.NickName + " Is Punching");
+                        this.gameObject.GetComponent<PlayerActions>().ChangeRole();
+                    }
+                }
+            }
         }
+
         //TO DO:
         //Check Collision of Attack States
         //Player should not collide with itself
@@ -266,9 +290,6 @@ public class PlayerActions : MonoBehaviour
             
             myPV.RPC("ChangeRole",RpcTarget.AllBufferedViaServer);
         }
-
-
-        
     }
 
     public void ChangeColor()
