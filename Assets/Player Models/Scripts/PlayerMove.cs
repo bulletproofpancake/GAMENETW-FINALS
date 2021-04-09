@@ -80,10 +80,10 @@ public class PlayerMove : MonoBehaviour
 
         transform.Rotate(Vector3.up * Input.GetAxisRaw("Mouse X") * mouseSensitivity);
 
-      //  verticalLookRotation += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
-        //verticalLookRotation = Mathf.Clamp(verticalLookRotation, -90f, 90f);
+        verticalLookRotation += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+        verticalLookRotation = Mathf.Clamp(verticalLookRotation, -90f, 90f);
 
-        //cam.transform.localEulerAngles = Vector3.left * verticalLookRotation;
+        cam.transform.localEulerAngles = Vector3.left * verticalLookRotation;
 
         direction = new Vector3(horizontal, 0f, vertical).normalized;
 
