@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void Awake()
     {
         myPV = GetComponent<PhotonView>();
+        getPlayers = new List<PlayerActions>();
         if (!PhotonNetwork.IsMasterClient)
             return;
 
@@ -36,15 +37,15 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        myPV.RPC("GetPlayer", RpcTarget.MasterClient);//MasterClient sets all the logic
-        myPV.RPC("SetRoles", RpcTarget.All); //MasterClient runs the logic
+        //myPV.RPC("GetPlayer", RpcTarget.MasterClient);//MasterClient sets all the logic
+        //myPV.RPC("SetRoles", RpcTarget.All); //MasterClient runs the logic
 
     }
 
     private void Update()
     {
-        myPV.RPC("TimeToPlay", RpcTarget.All);
-        myPV.RPC("Timer", RpcTarget.All);
+        //myPV.RPC("TimeToPlay", RpcTarget.All);
+        //myPV.RPC("Timer", RpcTarget.All);
     }
 
     

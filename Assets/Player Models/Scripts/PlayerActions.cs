@@ -63,7 +63,7 @@ public class PlayerActions : MonoBehaviour
             Destroy(rb);//prevents jittery bug //TEST
         }
         
-        GameManager.Instance.getPlayers.Add(this);
+        //GameManager.Instance.getPlayers.Add(this);
     }
 
     // Update is called once per frame
@@ -96,24 +96,21 @@ public class PlayerActions : MonoBehaviour
             print(contact.thisCollider.name + " hit " + contact.otherCollider.name);
             if (kick.activeSelf == true)
             {
-                Debug.Log("Kick");
+                Debug.LogError("KICK");
             }
 
             if (contact.otherCollider.name == "Collision Check")
             {
                 if (punch.activeSelf == true)
                 {
-                    if (!myPV.IsMine)//sets data to the other player
-                    {
-                        collision.gameObject.GetComponent<PlayerActions>().myPV.RPC("ChangeRole",RpcTarget.AllBufferedViaServer);
-                        Debug.Log(collision.gameObject + PhotonNetwork.NickName + "OTHER PLAYER");
-                    }
-
                     if (myPV.IsMine)//sets data to your client
                     {
                         Debug.Log(collision.gameObject + PhotonNetwork.NickName);
                         Debug.Log(PhotonNetwork.NickName + " Is Punching");
+                        Debug.LogError("PUNCH");
                         myPV.RPC("ChangeRole",RpcTarget.AllBufferedViaServer);
+                        contact.otherCollider.gameObject.GetComponentInParent<PlayerActions>().myPV.RPC("ChangeRole",RpcTarget.AllBufferedViaServer);
+                        Debug.Log(collision.gameObject + PhotonNetwork.NickName + "OTHER PLAYER");
                     }
                 }
             }
