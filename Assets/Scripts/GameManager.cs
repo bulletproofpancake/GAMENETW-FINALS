@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 {
 
     public static GameManager Instance;
+    [SerializeField] GameObject PlayerListPrefab;
+    [SerializeField] Transform PlayerListContent;
 
     PhotonView myPV;
     PlayerActions pa;
@@ -43,6 +45,15 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void GetPlayer(PlayerActions _playerActions)
     {
         getPlayers.Add(_playerActions);//Adds the players in the list
+    }
+
+    [PunRPC]
+    void GameOverCanvas()
+    {
+        for(int i=0;i<players.Length; i++)
+        {
+            Instantiate(PlayerListPrefab, PlayerListContent).GetComponent<playerListItem>().SetUp(players[i]);
+        }
     }
 
     [PunRPC]

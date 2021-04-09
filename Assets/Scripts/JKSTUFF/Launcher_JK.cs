@@ -76,7 +76,6 @@ public class Launcher_JK : MonoBehaviourPunCallbacks
         }
 
         startGameButton.SetActive(PhotonNetwork.IsMasterClient);
-
     }
 
     public override void OnMasterClientSwitched(Player newMasterClient)
@@ -91,6 +90,13 @@ public class Launcher_JK : MonoBehaviourPunCallbacks
 
     public void StartGame()
     {
+        /*
+         * ROOM LOGIC ON START
+         * SETACTIVE ROOM BUTTON FALSE
+         * NO PLAYER CAN JOIN AN ACTIVE GAME TO AVOID BUGS
+         */
+        //roomListItemPrefab.SetActive(false);
+
         PhotonNetwork.LoadLevel(1);
     }
 
