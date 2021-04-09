@@ -261,14 +261,22 @@ public class PlayerActions : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.P))
         {
-            ChangeRole();
+            if (!myPV.IsMine)
+                return;
+            
+            myPV.RPC("ChangeRole",RpcTarget.AllBufferedViaServer);
         }
 
 
         
     }
 
+    public void ChangeColor()
+    {
+        material.color = isHunter ? Color.magenta : Color.blue;
+    }
     
+    [PunRPC]
     //TODO: CALL WHEN COLLISIONS ARE WORKING
     public void ChangeRole()
     {
@@ -283,7 +291,7 @@ public class PlayerActions : MonoBehaviour
             isHunter = true;
         
         //Change color lang
-        material.color = isHunter ? Color.magenta : Color.blue;
+        ChangeColor();
         
         pm.speed = isHunter ? 9 : 6;
     }
