@@ -21,7 +21,6 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private SkinnedMeshRenderer skinRenderer;
     private Material material;
 
-
     #endregion
 
     #region - Player Bool Variables -
@@ -105,11 +104,14 @@ public class PlayerActions : MonoBehaviour
                 {
                     if (myPV.IsMine)//sets data to your client
                     {
+                        
                         Debug.Log(collision.gameObject + PhotonNetwork.NickName);
                         Debug.Log(PhotonNetwork.NickName + " Is Punching");
                         Debug.LogError("PUNCH");
+                        
                         myPV.RPC("ChangeRole",RpcTarget.AllBufferedViaServer);
                         contact.otherCollider.gameObject.GetComponentInParent<PlayerActions>().myPV.RPC("ChangeRole",RpcTarget.AllBufferedViaServer);
+                        contact.otherCollider.gameObject.GetComponentInParent<Rigidbody>().AddForce(actionForce);
                         Debug.Log(collision.gameObject + PhotonNetwork.NickName + "OTHER PLAYER");
                     }
                 }
