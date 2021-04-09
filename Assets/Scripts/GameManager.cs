@@ -3,6 +3,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using Photon.Pun.UtilityScripts;
+using TMPro;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -10,6 +11,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     public static GameManager Instance;
     [SerializeField] GameObject PlayerListPrefab;
     [SerializeField] Transform PlayerListContent;
+    [SerializeField] GameObject gameOverCanvas;
+    [SerializeField] TMP_Text timerText;
 
     PhotonView myPV;
     PlayerActions pa;
@@ -84,32 +87,42 @@ public class GameManager : MonoBehaviourPunCallbacks
         //}
     }
 
-     [PunRPC]
+    [PunRPC]
     private void TimeToPlay()//WORKING
     {
-        if (PhotonNetwork.IsMasterClient)//Only MasterClient loads this logic to avoid sync problem
+        if (gameTimer > 0)//Only MasterClient loads this logic to avoid sync problem
         {
             gameTimer -= Time.deltaTime;
         }
 
-        if (gameTimer <= 0)//Sent to all clients
+        if (gameTimer <= 0)
         {
             //show GameOver canvas if win or lose Text
+            gameOverCanvas.SetActive(true);
+
+            timerText.gameObject.SetActive(false);
+
             //lose = your the last tagged hunter
             //win = you're not a tagged hunter
 
-            //setActive false all controls (components not gameobject);
 
             //GameOver Canvas contents
-                //rankings from least tagged to most tagged as hunter;
-                //Disconnect button goes back to main menu;
-                
-            //PhotonNetwork.Disconnect();
-                //  on disconnect load main menu instead of login 
-            //PhotonNetwork.LoadLevel(0);
-                //  temporary create a win panel then send back to main menu
+            //rankings from least tagged to most tagged as hunter;
+            //Disconnect button goes back to main menu;
+
+            PhotonNetwork.Disconnect(); // on disconnect load main menu instead of login 
+            //PhotonNetwork.LoadLevel(0); // temporary create a win panel then send back to main menu
+
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
+    }
+
+    [PunRPC]
+    private void Timer()
+    {
+        timerText.text = gameTimer.ToString();
+
+
     }
 }
