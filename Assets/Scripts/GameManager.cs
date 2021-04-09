@@ -30,8 +30,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        if (!PhotonNetwork.IsMasterClient)
-            return;
 
         myPV.RPC("GetPlayer", RpcTarget.MasterClient);
         myPV.RPC("SetRoles", RpcTarget.All);
@@ -39,10 +37,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        if (!PhotonNetwork.IsMasterClient)
-            return;
         myPV.RPC("TimeToPlay", RpcTarget.All);
-
     }
 
     [PunRPC]
