@@ -43,10 +43,11 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        //myPV.RPC("TimeToPlay", RpcTarget.All);
+        myPV.RPC("TimeToPlay", RpcTarget.All);
+        myPV.RPC("Timer", RpcTarget.All);
     }
 
-    [PunRPC]
+    
     public void GetPlayer(PlayerActions _player)
     {
         getPlayers.Add(_player);//Adds the players in the list
