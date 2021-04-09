@@ -58,8 +58,8 @@ public class PlayerActions : MonoBehaviour
         currentStaggeredTime = startingStaggeredTime;
         if (!myPV.IsMine)
         {
-            Destroy(GetComponentInChildren<Camera>().gameObject);
-            Destroy(rb);
+            Destroy(GetComponentInChildren<Camera>().gameObject);//prevents from accessing cameras of other player
+            Destroy(rb);//prevents jittery bug
         }
         
         //GameManager.Instance.getPlayers.Add(this);
