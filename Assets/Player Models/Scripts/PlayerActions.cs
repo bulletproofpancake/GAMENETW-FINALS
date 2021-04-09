@@ -265,14 +265,31 @@ public class PlayerActions : MonoBehaviour
         
         if (isHunter)
         {
-            material.color = Color.magenta;
             pm.speed = 9;
         }
         else
         {
-            material.color = Color.blue;
             pm.speed = 6;
         }
 
     }
+
+    
+    //TODO: CALL WHEN COLLISIONS ARE WORKING
+    public void ChangeRole()
+    {
+        //basically, kung hunter ka nung tinawag tong function na to
+        //magiging runner ka
+        if (isHunter)
+            isHunter = false;
+        
+        //kung di ka naman hunter
+        //magiging hunter ka
+        else
+            isHunter = true;
+        
+        //Change color lang
+        material.color = isHunter ? Color.magenta : Color.blue;
+    }
+    
 }
