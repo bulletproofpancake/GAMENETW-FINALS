@@ -122,6 +122,7 @@ public class Launcher_JK : MonoBehaviourPunCallbacks
         * SETACTIVE ROOM BUTTON FALSE (just to be safe na walang masisirang room kapag nag destroy object tayo)
         * NO PLAYER CAN JOIN AN ACTIVE GAME TO AVOID BUGS
         * CHECK ROOM LIST METHOD BELOW IF LOGIC IS APPLICAPBLE
+        * 4 Minimum : 6 Maximum players
         */
         //roomListItemPrefab.SetActive(false);
 

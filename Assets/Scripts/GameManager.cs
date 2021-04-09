@@ -68,7 +68,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             foreach(PlayerActions playerActions in getPlayers)
             {
-                //sets the roles of each players
                 playerActions.gameObject.GetComponent<PlayerStatus>().isHunter = false;
             }
         }
@@ -93,7 +92,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             gameTimer -= Time.deltaTime;
         }
 
-        if (gameTimer <= 0)//Loads to all clients
+        if (gameTimer <= 0)//Sent to all clients
         {
             //show GameOver canvas if win or lose Text
             //lose = your the last tagged hunter
