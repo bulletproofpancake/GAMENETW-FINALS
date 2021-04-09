@@ -21,6 +21,7 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private SkinnedMeshRenderer skinRenderer;
     private Material material;
 
+    [SerializeField] float actionForce;
     #endregion
 
     #region - Player Bool Variables -
@@ -111,7 +112,7 @@ public class PlayerActions : MonoBehaviour
                         
                         myPV.RPC("ChangeRole",RpcTarget.AllBufferedViaServer);
                         contact.otherCollider.gameObject.GetComponentInParent<PlayerActions>().myPV.RPC("ChangeRole",RpcTarget.AllBufferedViaServer);
-                        contact.otherCollider.gameObject.GetComponentInParent<Rigidbody>().AddForce(actionForce);
+                        contact.otherCollider.gameObject.GetComponentInParent<Rigidbody>().AddForce(Vector3.back * actionForce * Time.deltaTime);
                         Debug.Log(collision.gameObject + PhotonNetwork.NickName + "OTHER PLAYER");
                     }
                 }
