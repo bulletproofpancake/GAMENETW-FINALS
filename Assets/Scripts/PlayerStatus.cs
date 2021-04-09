@@ -5,13 +5,15 @@ using Photon.Pun;
 public class PlayerStatus : MonoBehaviour
 {
    public bool isHunter;
+    
    //public SkinnedMeshRenderer skinRenderer;
    //private Material material;
 
    private void Awake()
    {
-      //material = skinRenderer.material;
-   }
+        GameManager.Instance.GetPlayer(this);
+        //material = skinRenderer.material;
+    }
 
    private void Start()
    {

@@ -90,13 +90,6 @@ public class Launcher_JK : MonoBehaviourPunCallbacks
 
     public void StartGame()
     {
-        /*
-         * ROOM LOGIC ON START
-         * SETACTIVE ROOM BUTTON FALSE
-         * NO PLAYER CAN JOIN AN ACTIVE GAME TO AVOID BUGS
-         */
-        //roomListItemPrefab.SetActive(false);
-
         PhotonNetwork.LoadLevel(1);
     }
 
@@ -123,6 +116,14 @@ public class Launcher_JK : MonoBehaviourPunCallbacks
         {
             Destroy(trans.gameObject);
         }
+
+        /*
+        * ROOM LOGIC ON START GAME
+        * SETACTIVE ROOM BUTTON FALSE (just to be safe na walang masisirang room kapag nag destroy object tayo)
+        * NO PLAYER CAN JOIN AN ACTIVE GAME TO AVOID BUGS
+        * CHECK ROOM LIST METHOD BELOW IF LOGIC IS APPLICAPBLE
+        */
+        //roomListItemPrefab.SetActive(false);
 
         for (int i = 0; i < roomList.Count; i++)
         {

@@ -60,7 +60,7 @@ public class PlayerActions : MonoBehaviour
             Destroy(GetComponentInChildren<Camera>().gameObject);
             Destroy(rb);
         }
-        GameManager.Instance.GetPlayer(this);
+        
         //GameManager.Instance.getPlayers.Add(this);
     }
 

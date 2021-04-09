@@ -17,8 +17,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     float gameTimer;
 
+    Player player;
     [SerializeField] Player[] players = PhotonNetwork.PlayerList;
-    public List<PlayerActions> getPlayers;
+    public List<PlayerStatus> getPlayers;
 
     private void Awake()
     {
@@ -32,8 +33,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        myPV.RPC("GetPlayer", RpcTarget.MasterClient);
-        myPV.RPC("SetRoles", RpcTarget.All);
+        myPV.RPC("GetPlayer", RpcTarget.MasterClient);//MasterClient sets all the logic
+        myPV.RPC("SetRoles", RpcTarget.All); ;//MasterClient runs the logic
+
     }
 
     private void Update()
@@ -42,9 +44,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void GetPlayer(PlayerActions _playerActions)
+    public void GetPlayer(PlayerStatus _playerStatus)
     {
-        getPlayers.Add(_playerActions);//Adds the players in the list
+        getPlayers.Add(_playerStatus);//Adds the players in the list
     }
 
     [PunRPC]
@@ -57,26 +59,28 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    private void SetRoles()//WORKING BUT NOT AS INTENDED
+    private void SetRoles()//NOT WORKING
     {
-        int hunterRole = Random.Range(0, PhotonNetwork.PlayerList.Length); // to whoever was chosen based from the hunterRole, that player will be given the hunter roles.
-        Debug.Log("hunterRole" + hunterRole);
-        if (PhotonNetwork.IsMasterClient)
-        {
-            foreach (PlayerActions playerActions in getPlayers)//sets the roles of each players
+        int pickHunter = Random.Range(0, getPlayers.Count);
+
+            for(int i = 0; i < getPlayers.Count; i++)
             {
-                playerActions.gameObject.GetComponent<PlayerStatus>().isHunter = false;
-            }
-        }
+                if(pickHunter != getPlayers.Count)
+                {
+                    gameObject.GetComponent<PlayerStatus>().isHunter = false;
+                }
+                else
+                    gameObject.GetComponent<PlayerStatus>().isHunter = true;
+                    Debug.Log("HUNTER: " + getPlayers);
+            }         
     }
 
     [PunRPC]
     private void TimeToPlay()//WORKING
     {
-        if (PhotonNetwork.IsMasterClient)//Only MasterClient loads this logic
+        if (PhotonNetwork.IsMasterClient)//Only MasterClient loads this logic to avoid sync problem
         {
             gameTimer -= Time.deltaTime;
-            //Debug.Log(gameTimer);
         }
 
         if (gameTimer <= 0)//Loads to all clients

@@ -1570,7 +1570,7 @@ MonoBehaviour:
   punch: {fileID: 2645072445841981819}
   capsuleCollider: {fileID: 2645072446785179850}
   hunter: 0
-  runner: 0
+  runner: 1
   currentKickTime: 0
   startingKickTime: 3
   cooldownKick: 0
