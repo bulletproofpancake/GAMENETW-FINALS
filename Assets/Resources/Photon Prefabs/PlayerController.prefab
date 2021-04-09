@@ -1462,7 +1462,6 @@ GameObject:
   - component: {fileID: 2645072446967787380}
   - component: {fileID: 2645072446967787386}
   - component: {fileID: 2645072446967787384}
-  - component: {fileID: 4958235536105864690}
   - component: {fileID: 501697250309017721}
   - component: {fileID: 7183566045042274899}
   - component: {fileID: 7194374598147242201}
@@ -1569,8 +1568,8 @@ MonoBehaviour:
   kick: {fileID: 2645072446681210676}
   punch: {fileID: 2645072445841981819}
   capsuleCollider: {fileID: 2645072446785179850}
-  hunter: 0
-  runner: 0
+  skinRenderer: {fileID: 7331606893668828968}
+  isHunter: 0
   currentKickTime: 0
   startingKickTime: 3
   cooldownKick: 0
@@ -1580,19 +1579,6 @@ MonoBehaviour:
   playerStaggered: 0
   currentStaggeredTime: 0
   startingStaggeredTime: 2
---- !u!114 &4958235536105864690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4335493589938081666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74fb42f4c35e2e84a939c5f9b0f19989, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isHunter: 0
 --- !u!114 &501697250309017721
 MonoBehaviour:
   m_ObjectHideFlags: 0

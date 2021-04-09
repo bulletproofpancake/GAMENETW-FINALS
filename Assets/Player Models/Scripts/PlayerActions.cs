@@ -18,13 +18,14 @@ public class PlayerActions : MonoBehaviour
     public GameObject punch;
     public GameObject capsuleCollider;
 
+    [SerializeField] private SkinnedMeshRenderer skinRenderer;
+    private Material material;
+
 
     #endregion
 
     #region - Player Bool Variables -
-    [SerializeField] public bool hunter = false;
-    [SerializeField] public bool runner = true;
-    PlayerStatus playerStatus;
+    public bool isHunter;
     #endregion
 
     #region - Kick Variables -
@@ -52,6 +53,7 @@ public class PlayerActions : MonoBehaviour
         pm = GetComponent<PlayerMove>();
         tc = capsuleCollider.GetComponent<TestCollision>();
         ts = punch.GetComponent<TransferStatus>();
+        material = skinRenderer.material;
         currentKickTime = startingKickTime;
         currentPunchTime = startingPunchTime;
         currentStaggeredTime = startingStaggeredTime;
@@ -129,7 +131,7 @@ public class PlayerActions : MonoBehaviour
     #region - Kick -
     void Kick()
     {
-        if (this.runner == true)
+        if (!isHunter)
         {
             if(Input.GetMouseButtonDown(0) && cooldownKick == false)
             {
@@ -163,7 +165,7 @@ public class PlayerActions : MonoBehaviour
     #region - Punch -
     void Punch()
     {
-        if (this.hunter == true)
+        if (isHunter)
         {
             if (Input.GetMouseButtonDown(0) && cooldownPunch == false)
             {
@@ -220,33 +222,57 @@ public class PlayerActions : MonoBehaviour
         //{
         //    this.hunter = true;
         //}
-        if (tc.becomeHunter == true)
-        {
-            this.hunter = true;
-            this.runner = false;
-            playerStatus.isHunter = true;
-            ts.becomeRunner = false;
-            pm.speed = 9;
-        }
-        else if (ts.becomeRunner == true)
-        {
-            this.runner = true;
-            this.hunter = false;
-            playerStatus.isHunter = false;
-            tc.becomeHunter = false;
-            pm.speed = 6;
-        }
+        // if (tc.becomeHunter == true)
+        // {
+        //     this.hunter = true;
+        //     this.runner = false;
+        //     playerStatus.isHunter = true;
+        //     ts.becomeRunner = false;
+        //     pm.speed = 9;
+        // }
+        // else if (ts.becomeRunner == true)
+        // {
+        //     this.runner = true;
+        //     this.hunter = false;
+        //     playerStatus.isHunter = false;
+        //     tc.becomeHunter = false;
+        //     pm.speed = 6;
+        // }
+        //
+        // //temporary code to see the actions --- O for runner status || P for hunter status
+        // if (Input.GetKeyDown(KeyCode.O))
+        // {
+        //     this.runner = true;
+        //     this.hunter = false;
+        //     playerStatus.isHunter = false;
+        // }
+        // else if (Input.GetKeyDown(KeyCode.P))
+        // {
+        //     this.hunter = true;
+        //     this.runner = false;
+        //     playerStatus.isHunter = false;
+        // }
 
-        //temporary code to see the actions --- O for runner status || P for hunter status
-        if (Input.GetKeyDown(KeyCode.O))
+        if(Input.GetKeyDown(KeyCode.O))
         {
-            this.runner = true;
-            this.hunter = false;
+            isHunter = false;
         }
         else if (Input.GetKeyDown(KeyCode.P))
         {
-            this.hunter = true;
-            this.runner = false;
+            isHunter = true;
         }
+        
+        
+        if (isHunter)
+        {
+            material.color = Color.magenta;
+            pm.speed = 9;
+        }
+        else
+        {
+            material.color = Color.blue;
+            pm.speed = 6;
+        }
+
     }
 }

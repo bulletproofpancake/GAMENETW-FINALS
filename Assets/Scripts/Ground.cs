@@ -121,8 +121,8 @@ public class Ground : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             var player = other.transform.parent.gameObject;
-            var pStatus = player.GetComponent<PlayerStatus>();
-            if (pStatus.isHunter && isRaised)
+            var actions = player.GetComponent<PlayerActions>();
+            if (actions.isHunter && isRaised)
             {
                 print("Hunter on platform");
                 StartCoroutine(PlatformController.Instance.RemoveHunter(player));
