@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void Update()
     {
         myPV.RPC("TimeToPlay", RpcTarget.All);
+        myPV.RPC("Timer", RpcTarget.All);
     }
 
     [PunRPC]
