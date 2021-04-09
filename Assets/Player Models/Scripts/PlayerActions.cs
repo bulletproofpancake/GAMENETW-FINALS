@@ -253,25 +253,19 @@ public class PlayerActions : MonoBehaviour
         //     playerStatus.isHunter = false;
         // }
 
-        if(Input.GetKeyDown(KeyCode.O))
-        {
-            isHunter = false;
-        }
-        else if (Input.GetKeyDown(KeyCode.P))
-        {
-            isHunter = true;
-        }
+        // if(Input.GetKeyDown(KeyCode.O))
+        // {
+        //     isHunter = false;
+        // }
+        // else
         
-        
-        if (isHunter)
+        if (Input.GetKeyDown(KeyCode.P))
         {
-            pm.speed = 9;
-        }
-        else
-        {
-            pm.speed = 6;
+            ChangeRole();
         }
 
+
+        
     }
 
     
@@ -290,6 +284,8 @@ public class PlayerActions : MonoBehaviour
         
         //Change color lang
         material.color = isHunter ? Color.magenta : Color.blue;
+        
+        pm.speed = isHunter ? 9 : 6;
     }
     
 }
