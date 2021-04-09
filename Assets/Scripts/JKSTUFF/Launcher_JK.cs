@@ -18,7 +18,7 @@ public class Launcher_JK : MonoBehaviourPunCallbacks
     [SerializeField] GameObject roomListItemPrefab;
     [SerializeField] GameObject PlayerListItemPrefab;
     [SerializeField] GameObject startGameButton;
-    [SerializeField] private byte minPlayerPerRoom = 4;
+    [SerializeField] private byte minPlayerPerRoom = 0;
     [SerializeField] private byte maxPlayerPerRoom = 6;
 
     #endregion
@@ -93,10 +93,11 @@ public class Launcher_JK : MonoBehaviourPunCallbacks
 
     public void StartGame()
     {
-        if (PhotonNetwork.CurrentRoom.PlayerCount >= minPlayerPerRoom)
+        /* return these settings */
+      //  if (PhotonNetwork.CurrentRoom.PlayerCount >= minPlayerPerRoom)
             PhotonNetwork.LoadLevel(1);
-        else
-            Debug.LogWarning("Not enough players, cannot start the game");
+        //else
+          //  Debug.LogWarning("Not enough players, cannot start the game");
         //PhotonNetwork.LoadLevel(1);
     }
 
