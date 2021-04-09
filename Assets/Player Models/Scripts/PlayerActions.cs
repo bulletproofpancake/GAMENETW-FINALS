@@ -48,7 +48,6 @@ public class PlayerActions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameManager.Instance.GetPlayer(this);
         anim = GetComponent<Animator>();
         pm = GetComponent<PlayerMove>();
         tc = capsuleCollider.GetComponent<TestCollision>();
@@ -62,7 +61,7 @@ public class PlayerActions : MonoBehaviour
             Destroy(rb);//prevents jittery bug
         }
         
-        //GameManager.Instance.getPlayers.Add(this);
+        GameManager.Instance.getPlayers.Add(this);
     }
 
     // Update is called once per frame

@@ -66,22 +66,22 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient)
         {
-            foreach(PlayerActions playerActions in getPlayers)
+            foreach (PlayerActions playerActions in getPlayers)
             {
                 playerActions.gameObject.GetComponent<PlayerStatus>().isHunter = false;
             }
         }
 
-            //int pickHunter = Random.Range(0, getPlayers.Count);
+        //int pickHunter = Random.Range(0, getPlayers.Count);
 
-            //for (int i = getPlayers.Count; i <= 0; i--)
-            //{
-            //    //somehow we need to access the components through the list
-            //    if (pickHunter != getPlayers.Count)
-            //        playerActions.gameObject.GetComponent<PlayerStatus>().runner = true;
-            //    else
-            //        gameObject.GetComponent<PlayerActions>().hunter = true;
-            //}
+        //for (int i = getPlayers.Count; i <= 0; i--)
+        //{
+        //    //somehow we need to access the components through the list
+        //    if (pickHunter != getPlayers.Count)
+        //        gameObject.GetComponent<PlayerActions>().runner = true;
+        //    else
+        //        gameObject.GetComponent<PlayerActions>().hunter = true;
+        //}
     }
 
      [PunRPC]
@@ -104,9 +104,10 @@ public class GameManager : MonoBehaviourPunCallbacks
                 //rankings from least tagged to most tagged as hunter;
                 //Disconnect button goes back to main menu;
                 
-            //PhotonNetwork.Disconnect(); // on disconnect load main menu instead of login 
-            //PhotonNetwork.LoadLevel(0); // temporary create a win panel then send back to main menu
-
+            //PhotonNetwork.Disconnect();
+            //  on disconnect load main menu instead of login 
+            //PhotonNetwork.LoadLevel(0);
+            //  temporary create a win panel then send back to main menu
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
