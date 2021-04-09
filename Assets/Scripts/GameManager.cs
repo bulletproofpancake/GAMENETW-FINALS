@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-
         myPV.RPC("GetPlayer", RpcTarget.MasterClient);
         myPV.RPC("SetRoles", RpcTarget.All);
     }
@@ -63,12 +62,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     private void TimeToPlay()//WORKING
     {
-        if (PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)//Only MasterClient loads this logic
         {
             gameTimer -= Time.deltaTime;
             //Debug.Log(gameTimer);
         }
-        if (gameTimer <= 0)
+
+        if (gameTimer <= 0)//Loads to all clients
         {
             //show GameOver canvas if win or lose Text
             //lose = your the last tagged hunter
