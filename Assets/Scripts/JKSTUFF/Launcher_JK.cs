@@ -18,6 +18,9 @@ public class Launcher_JK : MonoBehaviourPunCallbacks
     [SerializeField] GameObject roomListItemPrefab;
     [SerializeField] GameObject PlayerListItemPrefab;
     [SerializeField] GameObject startGameButton;
+    [SerializeField] private byte minPlayerPerRoom = 0;
+    [SerializeField] private byte maxPlayerPerRoom = 6;
+
     #endregion
 
     private void Awake()
@@ -54,7 +57,7 @@ public class Launcher_JK : MonoBehaviourPunCallbacks
         {
             return;
         }
-        PhotonNetwork.CreateRoom(roomNameInputField.text);
+        PhotonNetwork.CreateRoom(roomNameInputField.text, new RoomOptions {MaxPlayers = maxPlayerPerRoom});
         MenuManager.Instance.OpenMenu("Loading");
     }
 
@@ -90,7 +93,12 @@ public class Launcher_JK : MonoBehaviourPunCallbacks
 
     public void StartGame()
     {
-        PhotonNetwork.LoadLevel(1);
+        /* return these settings */
+      //  if (PhotonNetwork.CurrentRoom.PlayerCount >= minPlayerPerRoom)
+            PhotonNetwork.LoadLevel(1);
+        //else
+          //  Debug.LogWarning("Not enough players, cannot start the game");
+        //PhotonNetwork.LoadLevel(1);
     }
 
     public void LeaveRoom()
@@ -122,6 +130,7 @@ public class Launcher_JK : MonoBehaviourPunCallbacks
         * SETACTIVE ROOM BUTTON FALSE (just to be safe na walang masisirang room kapag nag destroy object tayo)
         * NO PLAYER CAN JOIN AN ACTIVE GAME TO AVOID BUGS
         * CHECK ROOM LIST METHOD BELOW IF LOGIC IS APPLICAPBLE
+        * 4 Minimum : 6 Maximum players
         */
         //roomListItemPrefab.SetActive(false);
 
