@@ -22,8 +22,8 @@ public class PlayerActions : MonoBehaviour
     #endregion
 
     #region - Player Bool Variables -
-    [SerializeField] private bool hunter = false;
-    [SerializeField] private bool runner = true;
+    [SerializeField] public bool hunter = false;
+    [SerializeField] public bool runner = true;
     PlayerStatus playerStatus;
     #endregion
 
@@ -48,6 +48,7 @@ public class PlayerActions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameManager.Instance.GetPlayer(this);
         anim = GetComponent<Animator>();
         pm = GetComponent<PlayerMove>();
         tc = capsuleCollider.GetComponent<TestCollision>();

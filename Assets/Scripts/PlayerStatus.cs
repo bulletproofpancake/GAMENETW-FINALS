@@ -11,7 +11,7 @@ public class PlayerStatus : MonoBehaviour
 
    private void Awake()
    {
-        GameManager.Instance.GetPlayer(this);
+        
         //material = skinRenderer.material;
     }
 

@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     Player player;
     [SerializeField] Player[] players = PhotonNetwork.PlayerList;
-    public List<PlayerStatus> getPlayers;
+    public List<PlayerActions> getPlayers;
 
     private void Awake()
     {
@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void GetPlayer(PlayerStatus _playerStatus)
+    public void GetPlayer(PlayerActions _playerStatus)
     {
         getPlayers.Add(_playerStatus);//Adds the players in the list
     }
@@ -63,14 +63,15 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         int pickHunter = Random.Range(0, getPlayers.Count);
 
-            for(int i = 0; i < getPlayers.Count; i++)
+            for(int i = getPlayers.Count; i <= 0; i--)
             {
                 if(pickHunter != getPlayers.Count)
                 {
-                    gameObject.GetComponent<PlayerStatus>().isHunter = false;
-                }
+                    gameObject.GetComponent<PlayerActions>().hunter = false;
+                    gameObject.GetComponent<PlayerActions>().runner = true;
+            }
                 else
-                    gameObject.GetComponent<PlayerStatus>().isHunter = true;
+                    gameObject.GetComponent<PlayerActions>().hunter = true;
                     Debug.Log("HUNTER: " + getPlayers);
             }         
     }
