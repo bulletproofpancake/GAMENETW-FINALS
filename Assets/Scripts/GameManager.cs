@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject gameOverCanvas;
     [SerializeField] TMP_Text timerText;
     [SerializeField] TMP_Text statusText;
+    [SerializeField] TMP_Text tagText;
 
     PhotonView myPV;
     PlayerActions pa;
@@ -160,4 +161,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         //    statusText.text = "Runner";
         //}
     }
+
+    public void UpdateTagCount(int count)
+    {
+        tagText.text = $"{count}";
+    }
+    
 }

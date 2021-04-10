@@ -22,6 +22,9 @@ public class PlayerActions : MonoBehaviour
     private Material material;
 
     [SerializeField] float actionForce;
+
+    public int tagCount;
+    
     #endregion
 
     #region - Player Bool Variables -
@@ -73,6 +76,7 @@ public class PlayerActions : MonoBehaviour
     }
     void Update()
     {
+        GameManager.Instance.UpdateTagCount(tagCount);
         if (!myPV.IsMine)
             return;
             Kick();
@@ -112,6 +116,8 @@ public class PlayerActions : MonoBehaviour
                         Debug.LogError("PUNCH");
                         
                         myPV.RPC("ChangeRole",RpcTarget.AllBufferedViaServer);
+                        contact.otherCollider.gameObject.GetComponentInParent<PlayerActions>().myPV.RPC("Tagged",RpcTarget.AllBufferedViaServer);
+                        Debug.LogError(contact.otherCollider.gameObject.GetComponentInParent<PlayerActions>().tagCount);
                         contact.otherCollider.gameObject.GetComponentInParent<PlayerActions>().myPV.RPC("ChangeRole",RpcTarget.AllBufferedViaServer);
                         contact.otherCollider.gameObject.GetComponentInParent<PlayerActions>().myPV.RPC("ActionForceApply", RpcTarget.AllBufferedViaServer);
                         Debug.Log(collision.gameObject + PhotonNetwork.NickName + "OTHER PLAYER");
@@ -293,11 +299,17 @@ public class PlayerActions : MonoBehaviour
     }
 
     [PunRPC]
-
     public void ActionForceApply()
     {
         // rb.AddForce(Vector3.back * actionForce, ForceMode.Impulse);
         transform.Translate(Vector3.back * Time.deltaTime);
 
+    }
+
+    [PunRPC]
+    void Tagged()
+    {
+        tagCount++;
+        Debug.LogWarning(tagCount);
     }
 }
