@@ -296,6 +296,6 @@ public class PlayerActions : MonoBehaviour
 
     public void ActionForceApply()
     {
-        this.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.back * actionForce * Time.deltaTime);
+        this.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.back * actionForce, ForceMode.Impulse);
     }
 }

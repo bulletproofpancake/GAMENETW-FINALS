@@ -3451,6 +3451,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2124384059832515307, guid: b132d80ba074bf64f84aceb9f98bdeaf,
         type: 3}
+      propertyPath: gameTimer
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 2124384059832515307, guid: b132d80ba074bf64f84aceb9f98bdeaf,
+        type: 3}
       propertyPath: timerText
       value: 
       objectReference: {fileID: 770512533}

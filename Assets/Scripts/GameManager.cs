@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     PlayerActions pa;
     TestCollision tc;
 
+    [SerializeField]
     float gameTimer;
     float gameTimerRPC;
 
@@ -32,7 +33,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         Instance = this;
         myPV = GetComponent<PhotonView>();
         getPlayers = new List<PlayerActions>();
-        gameTimer = 10.0f;
+       // gameTimer = 10.0f;
     }
 
     private void Start()
