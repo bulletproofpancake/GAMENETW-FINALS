@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject PlayerListPrefab;
     [SerializeField] Transform PlayerListContent;
     [SerializeField] GameObject gameOverCanvas;
+    [SerializeField] TMP_Text gameOverText;
     [SerializeField] TMP_Text timerText;
     [SerializeField] TMP_Text statusText;
     [SerializeField] TMP_Text tagText;
@@ -83,6 +84,17 @@ public class GameManager : MonoBehaviourPunCallbacks
         //GameOver Canvas contents
         //rankings from least tagged to most tagged as hunter;
         //Disconnect button goes back to main menu;
+
+        foreach (var p in getPlayers)
+        {
+            if (p.isHunter)
+                gameOverText.text = "Loser";
+            else
+            {
+                gameOverText.text = "Winner";
+            }
+        }
+        
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
