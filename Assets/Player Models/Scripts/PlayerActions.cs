@@ -304,17 +304,22 @@ public class PlayerActions : MonoBehaviour
         //basically, kung hunter ka nung tinawag tong function na to
         //magiging runner ka
         if (isHunter)
+        {
+            //Debug.Log("CHANGE TAG TO: " + gameObject.tag);
+            gameObject.tag = "Runner";
             isHunter = false;
-        
+        }
         //kung di ka naman hunter
         //magiging hunter ka
         else
+        {
+            //Debug.Log("CHANGE TAG TO: " + gameObject.tag);
+            gameObject.tag = "Hunter";
             isHunter = true;
-        
+        }
         //Change color lang
         ChangeColor();
         
         pm.speed = isHunter ? 9 : 6;
     }
-    
 }

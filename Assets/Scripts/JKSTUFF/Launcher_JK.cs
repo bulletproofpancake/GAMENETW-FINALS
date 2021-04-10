@@ -18,7 +18,7 @@ public class Launcher_JK : MonoBehaviourPunCallbacks
     [SerializeField] GameObject roomListItemPrefab;
     [SerializeField] GameObject PlayerListItemPrefab;
     [SerializeField] GameObject startGameButton;
-    [SerializeField] private byte minPlayerPerRoom = 0;
+    [SerializeField] private byte minPlayerPerRoom = 0; //set to 4 on pass
     [SerializeField] private byte maxPlayerPerRoom = 6;
 
     #endregion
@@ -124,16 +124,6 @@ public class Launcher_JK : MonoBehaviourPunCallbacks
         {
             Destroy(trans.gameObject);
         }
-
-        /*
-        * ROOM LOGIC ON START GAME
-        * SETACTIVE ROOM BUTTON FALSE (just to be safe na walang masisirang room kapag nag destroy object tayo)
-        * NO PLAYER CAN JOIN AN ACTIVE GAME TO AVOID BUGS
-        * CHECK ROOM LIST METHOD BELOW IF LOGIC IS APPLICAPBLE
-        * 4 Minimum : 6 Maximum players
-        */
-        //roomListItemPrefab.SetActive(false);
-
         for (int i = 0; i < roomList.Count; i++)
         {
             if (roomList[i].RemovedFromList)

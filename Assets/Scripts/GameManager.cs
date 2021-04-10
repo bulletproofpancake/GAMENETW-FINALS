@@ -14,11 +14,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject gameOverCanvas;
     [SerializeField] TMP_Text timerText;
 
+
     PhotonView myPV;
     PlayerActions pa;
     TestCollision tc;
 
     float gameTimer;
+    float gameTimerRPC;
 
     Player player;
     [SerializeField] Player[] players = PhotonNetwork.PlayerList;
@@ -37,15 +39,15 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        //myPV.RPC("GetPlayer", RpcTarget.MasterClient);//MasterClient sets all the logic
-        //myPV.RPC("SetRoles", RpcTarget.All); //MasterClient runs the logic
+        //myPV.RPC("GetPlayer", RpcTarget.MasterClient);//MasterClient gets all the available players in the room
+        //myPV.RPC("SetRoles", RpcTarget.All); //MasterClient sets role on the available players
 
     }
 
     private void Update()
     {
+        Timer();//Updates the timer text
         //myPV.RPC("TimeToPlay", RpcTarget.All);
-        //myPV.RPC("Timer", RpcTarget.All);
     }
 
     
@@ -89,42 +91,41 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
-    //[PunRPC]
-    //private void TimeToPlay()//WORKING
-    //{
-    //    if (gameTimer > 0)//Only MasterClient loads this logic to avoid sync problem
-    //    {
-    //        gameTimer -= Time.deltaTime;
-    //    }
+    private void GameTimeLogic()//WORKING
+    {
+        if (PhotonNetwork.IsMasterClient && gameTimer > 0)//MasterClient processes this logic then passes the data to everyone else;
+        {
+            gameTimer -= Time.deltaTime;//send this data to RPC call
+        }
+    }
 
-    //    if (gameTimer <= 0)
-    //    {
-    //        //show GameOver canvas if win or lose Text
-    //        gameOverCanvas.SetActive(true);
+    [PunRPC]
+    void EndGameLogic()
+    {
+        if (gameTimer <= 0)
+        {
+            //show GameOver canvas if win or lose Text
+            gameOverCanvas.SetActive(true);
 
-    //        timerText.gameObject.SetActive(false);
+            timerText.gameObject.SetActive(false);
 
-    //        //lose = your the last tagged hunter
-    //        //win = you're not a tagged hunter
+            //lose = your the last tagged hunter
+            //win = you're not a tagged hunter
 
+            //GameOver Canvas contents
+            //rankings from least tagged to most tagged as hunter;
+            //Disconnect button goes back to main menu;
 
-    //        //GameOver Canvas contents
-    //        //rankings from least tagged to most tagged as hunter;
-    //        //Disconnect button goes back to main menu;
+            //PhotonNetwork.Disconnect(); // on disconnect load main menu instead of login 
+            //PhotonNetwork.LoadLevel(0); // temporary create a win panel then send back to main menu
 
-    //        PhotonNetwork.Disconnect(); // on disconnect load main menu instead of login 
-    //        //PhotonNetwork.LoadLevel(0); // temporary create a win panel then send back to main menu
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+    }
 
-    //        Cursor.visible = true;
-    //        Cursor.lockState = CursorLockMode.None;
-    //    }
-    //}
-
-    //[PunRPC]
-    //private void Timer()
-    //{
-    //    timerText.text = gameTimer.ToString();
-
-
-    //}
+    private void Timer()
+    {
+        timerText.text = gameTimer.ToString();
+    }
 }
