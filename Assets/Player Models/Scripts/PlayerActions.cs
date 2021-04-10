@@ -77,13 +77,14 @@ public class PlayerActions : MonoBehaviour
     void Update()
     {
         //GameManager.Instance.UpdateTagCount(tagCount);
-        GameManager.Instance.StatusDisplay(isHunter);
+       
         if (!myPV.IsMine)
             return;
             Kick();
             Punch();
             Stagger();
             PlayerStatus();
+            GameManager.Instance.StatusDisplay(this);
         if (myPV.IsMine)
         {
             myPV.RPC("PlayerStatus", RpcTarget.AllViaServer);

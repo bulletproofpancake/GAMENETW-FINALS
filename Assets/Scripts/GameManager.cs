@@ -87,12 +87,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         foreach (var p in getPlayers)
         {
-            if (p.isHunter)
-                gameOverText.text = "Loser";
-            else
-            {
-                gameOverText.text = "Winner";
-            }
+            gameOverText.text = p.isHunter ? "Loser" : "Winner";
         }
         
 
@@ -156,7 +151,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         timerText.text = gameTimer.ToString();
     }
 
-    public void StatusDisplay(bool isHunter)
+    public void StatusDisplay(PlayerActions p)
     {
         //Call correct item in list 
         //int index = 
@@ -167,12 +162,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         //when there are two players the status text gets reversed
         //hunter's status text is runner and runner's status text is hunter
-        if (isHunter == true)
-            //statusText.text = "Hunter";
-            statusText.text = "Runner";
-        else
-            //statusText.text = "Runner";
-            statusText.text = "Hunter";
+        statusText.text = p.isHunter ? "Hunter" : "Runner";
     }
 
     public void UpdateTagCount(int count)
