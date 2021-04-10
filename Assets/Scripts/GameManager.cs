@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     private void SetRoles()//NOT WORKING
     {
+        #region old logic
         //int hunterRole = Random.Range(0, PhotonNetwork.PlayerList.Length); // to whoever was chosen based from the hunterRole, that player will be given the hunter roles.
         //Debug.Log("hunterRole" + hunterRole);
 
@@ -78,6 +79,12 @@ public class GameManager : MonoBehaviourPunCallbacks
         //        playerActions.gameObject.GetComponent<PlayerStatus>().isHunter = false;
         //    }
         //}
+        #endregion
+        /*
+         * Get playerActions on Player GameObjects
+         * use pickHunter as the randomizer for hunter
+         * send data to server
+         */
 
         int pickHunter = Random.Range(0, getPlayers.Count);
 

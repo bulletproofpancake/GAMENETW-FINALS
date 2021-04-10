@@ -63,7 +63,7 @@ public class PlayerActions : MonoBehaviour
             Destroy(rb);//prevents jittery bug //TEST
         }
         
-        //GameManager.Instance.getPlayers.Add(this);
+        //GameManager.Instance.getPlayers.Add(this); //ito ba gagamitin natin para maktia sila sa gameManager?
     }
 
     // Update is called once per frame
@@ -82,7 +82,6 @@ public class PlayerActions : MonoBehaviour
             PlayerStatus();
         if (myPV.IsMine)
         {
-            //myPV.RPC("OnCollisionEnter", RpcTarget.AllViaServer);
             myPV.RPC("PlayerStatus", RpcTarget.AllViaServer);
         }
     }
