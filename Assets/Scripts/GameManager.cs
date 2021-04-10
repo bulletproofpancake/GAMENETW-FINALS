@@ -32,10 +32,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         Instance = this;
         myPV = GetComponent<PhotonView>();
         getPlayers = new List<PlayerActions>();
-        if (!PhotonNetwork.IsMasterClient)
-            return;
-
-        gameTimer = 60.0f;
+        gameTimer = 10.0f;
     }
 
     private void Start()
@@ -43,7 +40,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         //Only the master client can call these functions
         if (!myPV.IsMine && !PhotonNetwork.IsMasterClient)
             return;
-        //myPV.RPC("GetPlayer", RpcTarget.MasterClient);//MasterClient gets all the available players in the room
         //Invoke so that players can load
         Invoke("Role",1f);
         myPV.RPC("CountDown", RpcTarget.AllBufferedViaServer,gameTimer);
@@ -74,6 +70,22 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
 
     void GameOver()
+    {
+        gameOverCanvas.SetActive(true);
+        timerText.gameObject.SetActive(false);
+
+        //lose = your the last tagged hunter
+        //win = you're not a tagged hunter
+
+        //GameOver Canvas contents
+        //rankings from least tagged to most tagged as hunter;
+        //Disconnect button goes back to main menu;
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
+    }
+
+    public void DisconnectButton()
     {
         PhotonNetwork.Disconnect();
         PhotonNetwork.LoadLevel(0);
@@ -121,16 +133,6 @@ public class GameManager : MonoBehaviourPunCallbacks
          * send data to server
          */
         Debug.LogError("Setting Roles");
-        // int pickHunter = Random.Range(0, getPlayers.Count);
-        //
-        // for (int i = getPlayers.Count; i >= 0; i--)
-        // {
-        //     //somehow we need to access the components through the list
-        //     if (pickHunter != getPlayers.Count)
-        //         gameObject.GetComponent<PlayerActions>().isHunter = false;
-        //     else
-        //         gameObject.GetComponent<PlayerActions>().isHunter = true;
-        // }
 
         foreach (var p in getPlayers)
         {
@@ -151,31 +153,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (gameTimer > 0)//MasterClient processes this logic then passes the data to everyone else;
         {
             gameTimer -= Time.deltaTime;//send this data to RPC call gameTimer data
-        }
-    }
-
-    [PunRPC]
-    void EndGameLogic()
-    {
-        if (gameTimer <= 0)
-        {
-            //show GameOver canvas if win or lose Text
-            gameOverCanvas.SetActive(true);
-
-            timerText.gameObject.SetActive(false);
-
-            //lose = your the last tagged hunter
-            //win = you're not a tagged hunter
-
-            //GameOver Canvas contents
-            //rankings from least tagged to most tagged as hunter;
-            //Disconnect button goes back to main menu;
-
-            //PhotonNetwork.Disconnect(); // on disconnect load main menu instead of login 
-            //PhotonNetwork.LoadLevel(0); // temporary create a win panel then send back to main menu
-
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
         }
     }
 

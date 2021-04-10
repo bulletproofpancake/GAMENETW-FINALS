@@ -47,8 +47,8 @@ public class Launcher_JK : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        MenuManager.Instance.OpenMenu("Login");
-        PhotonNetwork.NickName = "Player " + Random.Range(0, 1000).ToString("0000");
+            MenuManager.Instance.OpenMenu("Login");
+            PhotonNetwork.NickName = "Player " + Random.Range(0, 1000).ToString("0000");  
     }
 
     public void CreateRoom()
