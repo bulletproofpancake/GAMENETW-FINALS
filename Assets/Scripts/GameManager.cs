@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
@@ -45,15 +46,39 @@ public class GameManager : MonoBehaviourPunCallbacks
         //myPV.RPC("GetPlayer", RpcTarget.MasterClient);//MasterClient gets all the available players in the room
         //Invoke so that players can load
         Invoke("Role",1f);
-
+        myPV.RPC("CountDown", RpcTarget.AllBufferedViaServer,gameTimer);
     }
 
     private void Update()
     {
-        Timer();//Updates the timer text
+        //Timer();//Updates the timer text
         //myPV.RPC("TimeToPlay", RpcTarget.All);
     }
 
+    [PunRPC]
+    void CountDown(float time)
+    {
+        StartCoroutine(StartCountdown(time));
+    }
+
+    IEnumerator StartCountdown(float time)
+    {
+        var timer = time;
+        while (timer>0)
+        {
+            timerText.text = $"{timer:0}";
+            yield return new WaitForEndOfFrame();
+            timer -= Time.deltaTime;
+        }
+        GameOver();
+    }
+
+    void GameOver()
+    {
+        PhotonNetwork.Disconnect();
+        PhotonNetwork.LoadLevel(0);
+    }
+    
     void Role()
     {        
         //Selects a random player
