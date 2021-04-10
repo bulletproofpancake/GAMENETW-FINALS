@@ -77,6 +77,7 @@ public class PlayerActions : MonoBehaviour
     void Update()
     {
         GameManager.Instance.UpdateTagCount(tagCount);
+        GameManager.Instance.StatusDisplay(isHunter);
         if (!myPV.IsMine)
             return;
             Kick();

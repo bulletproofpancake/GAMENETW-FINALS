@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         Instance = this;
         myPV = GetComponent<PhotonView>();
         getPlayers = new List<PlayerActions>();
-       // gameTimer = 10.0f;
+        //gameTimer = 10.0f;
     }
 
     private void Start()
@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         //Only the master client can call these functions
         if (!myPV.IsMine && !PhotonNetwork.IsMasterClient)
             return;
+
         //Invoke so that players can load
         Invoke("Role",1f);
         myPV.RPC("CountDown", RpcTarget.AllBufferedViaServer,gameTimer);
@@ -51,7 +52,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         //Timer();//Updates the timer text
         //myPV.RPC("TimeToPlay", RpcTarget.All);
-       myPV.RPC("StatusDisplay",RpcTarget.AllBufferedViaServer);
     }
 
     [PunRPC]
@@ -144,22 +144,23 @@ public class GameManager : MonoBehaviourPunCallbacks
         timerText.text = gameTimer.ToString();
     }
 
-    [PunRPC]
-    private void StatusDisplay()
+    public void StatusDisplay(bool isHunter)
     {
-
-        //to do
-        //tmpro should change to display current play
-        //int viewID;
-        //if (myPV.ViewID == viewID && pa.isHunter == true)
-        //{
+        //Call correct item in list 
+        //int index = 
+        //if(myPV.ViewID == viewID && getPlayers[index].isHunter ==true)
         //    statusText.text = "Hunter";
-        //    Debug.Log(statusText);
-        //}
         //else
-        //{
         //    statusText.text = "Runner";
-        //}
+
+        //when there are two players the status text gets reversed
+        //hunter's status text is runner and runner's status text is hunter
+        if (isHunter == true)
+            //statusText.text = "Hunter";
+            statusText.text = "Runner";
+        else
+            //statusText.text = "Runner";
+            statusText.text = "Hunter";
     }
 
     public void UpdateTagCount(int count)
