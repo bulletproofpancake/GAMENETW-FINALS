@@ -302,8 +302,9 @@ public class PlayerActions : MonoBehaviour
     [PunRPC]
     public void ActionForceApply()
     {
+        int speed = 50;
         // rb.AddForce(Vector3.back * actionForce, ForceMode.Impulse);
-        transform.Translate(Vector3.back * Time.deltaTime);
+        transform.Translate(Vector3.back * speed *Time.deltaTime);
 
     }
 
