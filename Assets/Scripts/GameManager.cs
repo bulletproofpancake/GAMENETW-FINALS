@@ -87,6 +87,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         foreach (var p in getPlayers)
         {
+            if (!p.myPV.IsMine)
+                return;
             gameOverText.text = p.isHunter ? "Loser" : "Winner";
         }
         
