@@ -1653,7 +1653,7 @@ MonoBehaviour:
   punch: {fileID: 2645072445841981819}
   capsuleCollider: {fileID: 2645072446785179850}
   skinRenderer: {fileID: 7331606893668828968}
-  actionForce: 0
+  actionForce: 10
   isHunter: 0
   currentKickTime: 0
   startingKickTime: 3

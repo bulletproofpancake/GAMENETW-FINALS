@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] Transform PlayerListContent;
     [SerializeField] GameObject gameOverCanvas;
     [SerializeField] TMP_Text timerText;
-
+    [SerializeField] TMP_Text statusText;
 
     PhotonView myPV;
     PlayerActions pa;
@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         //Timer();//Updates the timer text
         //myPV.RPC("TimeToPlay", RpcTarget.All);
+       myPV.RPC("StatusDisplay",RpcTarget.AllBufferedViaServer);
     }
 
     [PunRPC]
@@ -114,20 +115,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    private void SetRoles(int viewID)//NOT WORKING
+    private void SetRoles(int viewID)
     {
-        #region old logic
-        //int hunterRole = Random.Range(0, PhotonNetwork.PlayerList.Length); // to whoever was chosen based from the hunterRole, that player will be given the hunter roles.
-        //Debug.Log("hunterRole" + hunterRole);
-
-        //if (PhotonNetwork.IsMasterClient)
-        //{
-        //    foreach (PlayerActions playerActions in getPlayers)
-        //    {
-        //        playerActions.gameObject.GetComponent<PlayerStatus>().isHunter = false;
-        //    }
-        //}
-        #endregion
         /*
          * Get playerActions on Player GameObjects
          * use pickHunter as the randomizer for hunter
@@ -149,16 +138,26 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     }
 
-    private void GameTimeLogic()//WORKING
-    {
-        if (gameTimer > 0)//MasterClient processes this logic then passes the data to everyone else;
-        {
-            gameTimer -= Time.deltaTime;//send this data to RPC call gameTimer data
-        }
-    }
-
     private void Timer()
     {
         timerText.text = gameTimer.ToString();
+    }
+
+    [PunRPC]
+    private void StatusDisplay()
+    {
+
+        //to do
+        //tmpro should change to display current play
+        //int viewID;
+        //if (myPV.ViewID == viewID && pa.isHunter == true)
+        //{
+        //    statusText.text = "Hunter";
+        //    Debug.Log(statusText);
+        //}
+        //else
+        //{
+        //    statusText.text = "Runner";
+        //}
     }
 }
