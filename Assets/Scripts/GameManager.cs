@@ -123,9 +123,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void GameTimeLogic()//WORKING
     {
-        if (PhotonNetwork.IsMasterClient && gameTimer > 0)//MasterClient processes this logic then passes the data to everyone else;
+        if (gameTimer > 0)//MasterClient processes this logic then passes the data to everyone else;
         {
-            gameTimer -= Time.deltaTime;//send this data to RPC call
+            gameTimer -= Time.deltaTime;//send this data to RPC call gameTimer data
         }
     }
 
