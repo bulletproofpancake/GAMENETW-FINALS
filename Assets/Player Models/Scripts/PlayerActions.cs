@@ -113,7 +113,7 @@ public class PlayerActions : MonoBehaviour
                         
                         myPV.RPC("ChangeRole",RpcTarget.AllBufferedViaServer);
                         contact.otherCollider.gameObject.GetComponentInParent<PlayerActions>().myPV.RPC("ChangeRole",RpcTarget.AllBufferedViaServer);
-                        contact.otherCollider.gameObject.GetComponentInParent<Rigidbody>().AddForce(Vector3.back * actionForce * Time.deltaTime);
+                        contact.otherCollider.gameObject.GetComponentInParent<PlayerActions>().myPV.RPC("ActionForceApply", RpcTarget.AllBufferedViaServer);
                         Debug.Log(collision.gameObject + PhotonNetwork.NickName + "OTHER PLAYER");
                     }
                 }
@@ -290,5 +290,12 @@ public class PlayerActions : MonoBehaviour
         ChangeColor();
         
         pm.speed = isHunter ? 9 : 6;
+    }
+
+    [PunRPC]
+
+    public void ActionForceApply()
+    {
+        this.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.back * actionForce * Time.deltaTime);
     }
 }
