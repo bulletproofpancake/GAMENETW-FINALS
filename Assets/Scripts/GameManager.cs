@@ -28,19 +28,23 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+        Instance = this;
         myPV = GetComponent<PhotonView>();
         getPlayers = new List<PlayerActions>();
         if (!PhotonNetwork.IsMasterClient)
             return;
 
         gameTimer = 60.0f;
-        Instance = this;
     }
 
     private void Start()
     {
+        //Only the master client can call these functions
+        if (!myPV.IsMine && !PhotonNetwork.IsMasterClient)
+            return;
         //myPV.RPC("GetPlayer", RpcTarget.MasterClient);//MasterClient gets all the available players in the room
-        //myPV.RPC("SetRoles", RpcTarget.All); //MasterClient sets role on the available players
+        //Invoke so that players can load
+        Invoke("Role",1f);
 
     }
 
@@ -50,6 +54,12 @@ public class GameManager : MonoBehaviourPunCallbacks
         //myPV.RPC("TimeToPlay", RpcTarget.All);
     }
 
+    void Role()
+    {        
+        //Selects a random player
+        var hunter = getPlayers[Random.Range(0, getPlayers.Count)];
+        myPV.RPC("SetRoles", RpcTarget.AllViaServer,hunter.myPV.ViewID); //MasterClient sets role on the available players
+    }
     
     public void GetPlayer(PlayerActions _player)
     {
@@ -66,7 +76,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    private void SetRoles()//NOT WORKING
+    private void SetRoles(int viewID)//NOT WORKING
     {
         #region old logic
         //int hunterRole = Random.Range(0, PhotonNetwork.PlayerList.Length); // to whoever was chosen based from the hunterRole, that player will be given the hunter roles.
@@ -85,17 +95,30 @@ public class GameManager : MonoBehaviourPunCallbacks
          * use pickHunter as the randomizer for hunter
          * send data to server
          */
+        Debug.LogError("Setting Roles");
+        // int pickHunter = Random.Range(0, getPlayers.Count);
+        //
+        // for (int i = getPlayers.Count; i >= 0; i--)
+        // {
+        //     //somehow we need to access the components through the list
+        //     if (pickHunter != getPlayers.Count)
+        //         gameObject.GetComponent<PlayerActions>().isHunter = false;
+        //     else
+        //         gameObject.GetComponent<PlayerActions>().isHunter = true;
+        // }
 
-        int pickHunter = Random.Range(0, getPlayers.Count);
-
-        for (int i = getPlayers.Count; i >= 0; i--)
+        foreach (var p in getPlayers)
         {
-            //somehow we need to access the components through the list
-            if (pickHunter != getPlayers.Count)
-                gameObject.GetComponent<PlayerActions>().isHunter = false;
+            if (p.myPV.ViewID == viewID)
+            {
+                p.ChangeRole();
+            }
             else
-                gameObject.GetComponent<PlayerActions>().isHunter = true;
+            {
+                p.ChangeColor();
+            }
         }
+
     }
 
     private void GameTimeLogic()//WORKING

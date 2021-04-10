@@ -1648,6 +1648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64b44b745255f7e4fb3f570593c5ce46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myPV: {fileID: 0}
   kick: {fileID: 2645072446681210676}
   punch: {fileID: 2645072445841981819}
   capsuleCollider: {fileID: 2645072446785179850}

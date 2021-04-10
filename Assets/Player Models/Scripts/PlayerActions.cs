@@ -11,7 +11,7 @@ public class PlayerActions : MonoBehaviour
     PlayerMove pm;
     TestCollision tc;
     TransferStatus ts;
-    PhotonView myPV;
+    public PhotonView myPV;
     Rigidbody rb;
 
     public GameObject kick;
@@ -62,13 +62,12 @@ public class PlayerActions : MonoBehaviour
             Destroy(GetComponentInChildren<Camera>().gameObject);//prevents from accessing cameras of other player
             Destroy(rb);//prevents jittery bug //TEST
         }
-        
-        //GameManager.Instance.getPlayers.Add(this); //ito ba gagamitin natin para maktia sila sa gameManager?
     }
 
     // Update is called once per frame
     private void Awake()
     {
+        GameManager.Instance.getPlayers.Add(this); //ito ba gagamitin natin para maktia sila sa gameManager?
         rb = GetComponent<Rigidbody>();
         myPV = GetComponent<PhotonView>();
     }
